@@ -158,6 +158,7 @@ function Header() {
       onConfirm: () => {
         KlipAPI.getAddress(setQrvalue, async (address) => {
           setMyAddress(address);
+          setIsLogined(true);
         });
       },
     });
