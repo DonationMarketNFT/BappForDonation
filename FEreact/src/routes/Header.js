@@ -7,9 +7,15 @@ import styled from "styled-components";
 import { media, theme } from "../styles/theme";
 import { BrowserView } from "react-device-detect";
 import { faBorderNone, faCircleXmark } from "@fortawesome/free-solid-svg-icons";
+import * as KlipAPI from "../api/UseKlip";
 import ConnectWalletModal from "./ConnectWalletModal";
-import { useRecoilState } from "recoil";
-import { showQRState } from "../atom";
+import { useRecoilState, useResetRecoilState } from "recoil";
+import {
+  modalPropsState,
+  myAddressState,
+  qrValueState,
+  showQRState,
+} from "../atom";
 
 const Head = styled(motion.header)`
   position: fixed;
@@ -108,8 +114,6 @@ const headVariants = {
   },
 };
 
-const DEFAULT_QR_CODE = "DEFAULT";
-
 function Header() {
   const [searchOpen, setSearchOpen] = useState(false);
   const [isLogined, setIsLogined] = useState(false);
@@ -118,7 +122,9 @@ function Header() {
   const { scrollY } = useViewportScroll();
   const navigate = useNavigate();
   const [showQR, setShowQR] = useRecoilState(showQRState);
-  const [qrvalue, setQrvalue] = useState(DEFAULT_QR_CODE);
+  const [qrvalue, setQrvalue] = useRecoilState(qrValueState);
+  const [modalProps, setModalProps] = useRecoilState(modalPropsState);
+  const [myAddress, setMyAddress] = useRecoilState(myAddressState);
 
   useEffect(() => {
     scrollY.onChange(() => {
@@ -130,21 +136,39 @@ function Header() {
     });
   }, [scrollY, headAnimation]);
 
-  const toggleSearch = () => {
-    if (searchOpen) {
-      inputAnimation.start({
-        scaleX: 0,
-      });
-      if (scrollY.get() == 0) headAnimation.start("top");
-    } else {
-      inputAnimation.start({ scaleX: 1 });
-      headAnimation.start("scroll");
-    }
-    setSearchOpen((prev) => !prev);
-  };
+  // const toggleSearch = () => {
+  //   if (searchOpen) {
+  //     inputAnimation.start({
+  //       scaleX: 0,
+  //     });
+  //     if (scrollY.get() == 0) headAnimation.start("top");
+  //   } else {
+  //     inputAnimation.start({ scaleX: 1 });
+  //     headAnimation.start("scroll");
+  //   }
+  //   setSearchOpen((prev) => !prev);
+  // };
 
   const handleQRClose = () => setShowQR(false);
   const handleQRShow = () => setShowQR(true);
+
+  const getUserData = () => {
+    setModalProps({
+      title: "Connect Wallet",
+      onConfirm: () => {
+        KlipAPI.getAddress(setQrvalue, async (address) => {
+          setMyAddress(address);
+        });
+      },
+    });
+    handleQRClose();
+  };
+
+  console.log(showQR);
+
+  useEffect(() => {
+    getUserData();
+  }, []);
 
   return (
     <Head variants={headVariants} animate={headAnimation} initial={"top"}>
@@ -187,8 +211,14 @@ function Header() {
               </>
             ) : (
               <>
-                <ConnectWallet onClick={handleQRShow}>
+                <ConnectWallet
+                  onClick={() => {
+                    getUserData();
+                    handleQRShow();
+                  }}
+                >
                   Connect Wallet
+                  {myAddress ? <div>{myAddress}</div> : null}
                 </ConnectWallet>
                 {showQR ? <ConnectWalletModal /> : null}
               </>

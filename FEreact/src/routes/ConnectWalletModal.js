@@ -2,10 +2,11 @@ import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
-import { showQRState } from "../atom";
+import { modalPropsState, qrValueState, showQRState } from "../atom";
 import { media, theme } from "../styles/theme";
 import klip from "../assets/png/klip-logo.svg";
 import kaikas from "../assets/png/kaikas-logo.svg";
+import QRCode from "qrcode.react";
 
 const ModalWrapper = styled.div`
   position: fixed;
@@ -22,7 +23,7 @@ const ModalWrapper = styled.div`
 `;
 
 const ModalContent = styled.div`
-  background: ${theme.color.accentColor};
+  background: gray;
   border-radius: 10px;
   transition: all 0.2 ease-in-out;
   width: 593px;
@@ -71,26 +72,52 @@ const ConnectWalletModalContent = styled.div`
   display: flex;
   justify-content: space-between;
   width: 100%;
+  ${media[768]} {
+    flex-direction: column;
+    align-items: center;
+  }
 `;
-const ConnectWalletCard = styled.button`
+const ConnectWalletCard = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  all: unset;
+  cursor: pointer;
   width: 220px;
   height: 160px;
-  padding: 0 30px;
+  padding: 0 20px;
   box-sizing: border-box;
   background: ${theme.color.accentColor};
   border-radius: 10px;
+  h5 {
+    margin-top: 15px;
+    color: white;
+  }
+  ${theme.BoxShadow1}
+  transition:all 0.2s ease-in-out;
+  &:hover {
+    ${theme.BoxShadow2}
+    transform: translateY(-5px);
+  }
+  ${media[768]} {
+    margin-bottom: 20px;
+  }
+`;
+
+const QRContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 20px;
 `;
 
 function ConnectWalletModal() {
   const [showQR, setShowQR] = useRecoilState(showQRState);
+  const [modalProps, setModalProps] = useRecoilState(modalPropsState);
+  const [qrvalue, setQrvalue] = useRecoilState(qrValueState);
 
   const handleQRClose = () => setShowQR(false);
-
   return (
     <ModalWrapper show={showQR}>
       <ModalContent>
@@ -98,18 +125,38 @@ function ConnectWalletModal() {
           <ConnectWalletModalHeader>
             <h5>Connect Wallet</h5>
             <button>
-              <FontAwesomeIcon onClick={handleQRClose} icon={faTimes} />
+              <FontAwesomeIcon
+                onClick={() => {
+                  handleQRClose();
+                  setQrvalue("DEFAULT");
+                }}
+                icon={faTimes}
+              />
             </button>
           </ConnectWalletModalHeader>
           <ConnectWalletModalContent>
-            <ConnectWalletCard>
-              <img src={kaikas} />
-              <h5>Connect To KaiKas Wallet</h5>
-            </ConnectWalletCard>
-            <ConnectWalletCard>
-              <img src={klip} />
-              <h5>Connect To Klip Wallet</h5>
-            </ConnectWalletCard>
+            {qrvalue == "DEFAULT" ? (
+              <>
+                <ConnectWalletCard>
+                  <img src={kaikas} />
+                  <h5>Connect To KaiKas Wallet</h5>
+                </ConnectWalletCard>
+                <ConnectWalletCard
+                  onClick={() => {
+                    modalProps.onConfirm();
+                  }}
+                >
+                  <img src={klip} />
+                  <h5>Connect To Klip Wallet</h5>
+                </ConnectWalletCard>
+              </>
+            ) : (
+              <>
+                <QRContainer>
+                  <QRCode value={qrvalue} size={256} />
+                </QRContainer>
+              </>
+            )}
           </ConnectWalletModalContent>
         </ConnectWalletContainer>
       </ModalContent>

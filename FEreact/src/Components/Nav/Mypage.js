@@ -6,6 +6,8 @@ import { data } from "../../api/mynft";
 import { makeNewImagePath } from "../../utils";
 import { useEffect, useState } from "react";
 import { Button, Modal, ModalDialog } from "react-bootstrap";
+import { myAddressState } from "../../atom";
+import { useRecoilState } from "recoil";
 
 const ProfileContainer = styled.div`
   display: flex;
@@ -121,6 +123,7 @@ function Mypage() {
   const [profile, setProfile] = useState(DEFAULT_IMAGE);
   const [show, setShow] = useState(false);
   const [value, setValue] = useState("");
+  const [myAddress, setMyAddress] = useRecoilState(myAddressState);
 
   const handleClose = (e) => {
     setShow(false);
@@ -147,7 +150,7 @@ function Mypage() {
           </ProfileInfo>
           <ProfileInfo>
             <span>Wallet Address</span>
-            <span>0x0000000000000320423</span>
+            <span>{myAddress}</span>
           </ProfileInfo>
           <ProfileInfo>
             <span>Wallet Balance</span>
