@@ -7,6 +7,7 @@ import { media, theme } from "../styles/theme";
 import klip from "../assets/png/klip-logo.svg";
 import kaikas from "../assets/png/kaikas-logo.svg";
 import QRCode from "qrcode.react";
+import { isMobile } from "react-device-detect";
 
 const ModalWrapper = styled.div`
   position: fixed;
@@ -137,10 +138,12 @@ function ConnectWalletModal() {
           <ConnectWalletModalContent>
             {qrvalue == "DEFAULT" ? (
               <>
-                <ConnectWalletCard>
-                  <img src={kaikas} />
-                  <h5>Connect To KaiKas Wallet</h5>
-                </ConnectWalletCard>
+                {isMobile ? null : (
+                  <ConnectWalletCard>
+                    <img src={kaikas} />
+                    <h5>Connect To KaiKas Wallet</h5>
+                  </ConnectWalletCard>
+                )}
                 <ConnectWalletCard
                   onClick={() => {
                     modalProps.onConfirm();

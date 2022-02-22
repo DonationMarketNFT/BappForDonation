@@ -28,7 +28,7 @@ export const getAddress = (setQrvalue, callback) => {
         setQrvalue(getKlipAccessUrl("QR", request_key));
       }
 
-      console.log(response);
+      console.log(`response:${response}`);
 
       let timerId = setInterval(() => {
         axios

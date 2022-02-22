@@ -52,10 +52,10 @@ function Campaigns() {
       <Container>
         <CampaignsTitle>All Campaigns</CampaignsTitle>
         <Tabs>
-          <Tab isActive={path.pathname == "/campaigns/present"}>
+          <Tab isActive={path.pathname === "/campaigns/present"}>
             <Link to="present">진행 중 캠페인</Link>
           </Tab>
-          <Tab isActive={path.pathname == "/campaigns/past"}>
+          <Tab isActive={path.pathname === "/campaigns/past"}>
             <Link to="past">완료된 캠페인</Link>
           </Tab>
         </Tabs>

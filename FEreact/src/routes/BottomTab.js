@@ -8,6 +8,15 @@ import {
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
+import * as KlipAPI from "../api/UseKlip";
+import {
+  modalPropsState,
+  myAddressState,
+  qrValueState,
+  showQRState,
+} from "../atom";
+import { useRecoilState } from "recoil";
+import ConnectWalletModal from "./ConnectWalletModal";
 
 const BottomTabContainer = styled.div`
   display: flex;
@@ -40,6 +49,26 @@ const BottomTabBox = styled.div`
 function BottomTab() {
   const [isLogined, setIsLogined] = useState(false);
   const [tap, setTap] = useState("home");
+  const [showQR, setShowQR] = useRecoilState(showQRState);
+  const [qrvalue, setQrvalue] = useRecoilState(qrValueState);
+  const [modalProps, setModalProps] = useRecoilState(modalPropsState);
+  const [myAddress, setMyAddress] = useRecoilState(myAddressState);
+
+  const handleQRClose = () => setShowQR(false);
+  const handleQRShow = () => setShowQR(true);
+
+  const getUserData = () => {
+    setModalProps({
+      title: "Connect Wallet",
+      onConfirm: () => {
+        KlipAPI.getAddress(setQrvalue, async (address) => {
+          setMyAddress(address);
+          setIsLogined(true);
+        });
+      },
+    });
+    handleQRClose();
+  };
   return (
     <>
       <MobileView>
@@ -60,8 +89,15 @@ function BottomTab() {
               </>
             ) : (
               <>
-                <FontAwesomeIcon icon={faWallet}></FontAwesomeIcon>
+                <FontAwesomeIcon
+                  onClick={() => {
+                    getUserData();
+                    handleQRShow();
+                  }}
+                  icon={faWallet}
+                ></FontAwesomeIcon>
                 <span>지갑 연동하기</span>
+                {showQR ? <ConnectWalletModal /> : null}
               </>
             )}
           </BottomTabBox>
