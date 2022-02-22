@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Carousel } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import Test from "../../api/UseCaver";
 import img1 from "../../assets/banners/0.jpg";
 import img2 from "../../assets/banners/1.jpg";
 import img3 from "../../assets/banners/2.jpg";
@@ -53,6 +54,8 @@ const ViewAllButton = styled.button`
 `;
 
 function Home() {
+  // console.log(DonationContract.methods);
+
   return (
     <>
       <Banner />
@@ -61,6 +64,7 @@ function Home() {
       <Link to="/campaigns">
         <ViewAllButton>View All Campaigns</ViewAllButton>
       </Link>
+      <Test />
     </>
   );
 }

@@ -9,6 +9,8 @@ import Campaign from "../Components/Campaign/Campaign";
 import Connection from "../Components/Nav/Connection";
 import Mypage from "../Components/Nav/Mypage";
 import BottomTab from "./BottomTab";
+import { useRecoilState } from "recoil";
+import { showQRState } from "../atom";
 
 function Router() {
   return (

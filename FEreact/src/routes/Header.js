@@ -4,8 +4,12 @@ import { useEffect, useState } from "react";
 import { Modal } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { media } from "../styles/theme";
+import { media, theme } from "../styles/theme";
 import { BrowserView } from "react-device-detect";
+import { faBorderNone, faCircleXmark } from "@fortawesome/free-solid-svg-icons";
+import ConnectWalletModal from "./ConnectWalletModal";
+import { useRecoilState } from "recoil";
+import { showQRState } from "../atom";
 
 const Head = styled(motion.header)`
   position: fixed;
@@ -13,8 +17,11 @@ const Head = styled(motion.header)`
   display: flex;
   align-items: center;
   width: 100%;
-  height: 60px;
+  height: 80px;
   z-index: 9;
+  ${media.mobile} {
+    height: 72px;
+  }
 `;
 
 const Container = styled.div`
@@ -28,6 +35,9 @@ const Container = styled.div`
   z-index: 9;
   ${media.tablet} {
     width: 100%;
+  }
+  ${media.mobile} {
+    justify-content: center;
   }
 `;
 
@@ -50,6 +60,7 @@ const SearchForm = styled.form`
     display: none;
   }
 `;
+
 const SearchInput = styled(motion.input).attrs({ autoComplete: "off" })`
   all: unset;
   transform-origin: right center;
@@ -63,25 +74,40 @@ const SearchInput = styled(motion.input).attrs({ autoComplete: "off" })`
   border: 1px solid lightgray;
 `;
 
-const MyBalance = styled.div`
-  margin-left: 15px;
-`;
-
 const Mypage = styled.div`
+  background-color: ${theme.color.accentColor};
   margin-left: 15px;
+  padding: 10px 20px;
+  color: white;
+  font-weight: bold;
+  border-radius: 10px;
+  text-transform: uppercase;
+  font-size: 14px;
+  cursor: pointer;
 `;
 const ConnectWallet = styled.div`
+  background-color: ${theme.color.accentColor};
   margin-left: 15px;
+  padding: 10px 20px;
+  color: white;
+  font-weight: bold;
+  border-radius: 10px;
+  text-transform: uppercase;
+  font-size: 14px;
+  cursor: pointer;
 `;
 
 const headVariants = {
   top: {
     backgroundColor: "rgba(0, 0, 0, 0)",
+    borderBottom: "1px solid rgba(255, 255, 255, 0)",
   },
   scroll: {
     backgroundColor: "rgba(255, 255, 255, 1)",
+    borderBottom: "1px solid rgba(255, 255, 255, 0.9)",
   },
 };
+
 const DEFAULT_QR_CODE = "DEFAULT";
 
 function Header() {
@@ -91,12 +117,12 @@ function Header() {
   const headAnimation = useAnimation();
   const { scrollY } = useViewportScroll();
   const navigate = useNavigate();
-  const [showQR, setShowQR] = useState(false);
+  const [showQR, setShowQR] = useRecoilState(showQRState);
   const [qrvalue, setQrvalue] = useState(DEFAULT_QR_CODE);
 
   useEffect(() => {
     scrollY.onChange(() => {
-      if (scrollY.get() > 60) {
+      if (scrollY.get() > 20) {
         headAnimation.start("scroll");
       } else {
         headAnimation.start("top");
@@ -130,7 +156,8 @@ function Header() {
         </Col>
         <BrowserView>
           <Col>
-            <SearchForm>
+            {/* 어드밴스 */}
+            {/* <SearchForm>
               <motion.svg
                 onClick={toggleSearch}
                 animate={{ x: searchOpen ? -185 : 0 }}
@@ -151,10 +178,9 @@ function Header() {
                 transition={{ type: "linear" }}
                 placeholder="Search for Campaign..."
               />
-            </SearchForm>
+            </SearchForm> */}
             {isLogined ? (
               <>
-                <MyBalance>523 Klay</MyBalance>
                 <Link to="/mypage">
                   <Mypage>Mypage</Mypage>
                 </Link>
@@ -164,17 +190,7 @@ function Header() {
                 <ConnectWallet onClick={handleQRShow}>
                   Connect Wallet
                 </ConnectWallet>
-                <Modal show={showQR} onHide={handleQRClose}>
-                  <Modal.Header closeButton>
-                    <Modal.Title>Kakao Klip 연동하기</Modal.Title>
-                  </Modal.Header>
-                  <Modal.Body style={{ margin: "30px auto" }}>
-                    <QRCode value={qrvalue} size={256} />
-                  </Modal.Body>
-                  <button onClick={() => setIsLogined(true)}>
-                    임시 로그인 버튼
-                  </button>
-                </Modal>
+                {showQR ? <ConnectWalletModal /> : null}
               </>
             )}
           </Col>

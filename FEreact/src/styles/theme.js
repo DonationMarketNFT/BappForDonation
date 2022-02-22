@@ -39,7 +39,7 @@ const BoxShadow2 = css`
 export const theme = {
   color: {
     textColor: "#333",
-    accentColor: "#fbc531",
+    accentColor: "#FD8A69",
     bg_color: "#fff",
   },
   font,

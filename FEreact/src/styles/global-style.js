@@ -10,4 +10,7 @@ export const GlobalStyle = createGlobalStyle`
     a:hover {
         color:inherit;
     }
+    body {
+        background-color: rgb(248, 248, 248);
+    }
 `;
