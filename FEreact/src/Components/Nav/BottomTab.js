@@ -8,15 +8,15 @@ import {
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
-import * as KlipAPI from "../api/UseKlip";
+import * as KlipAPI from "../../api/UseKlip";
 import {
   modalPropsState,
   myAddressState,
   qrValueState,
-  showQRState,
-} from "../atom";
+  showModalState,
+} from "../../atom";
 import { useRecoilState } from "recoil";
-import ConnectWalletModal from "./ConnectWalletModal";
+import ConnectWalletModal from "../Modal/ConnectWalletModal";
 
 const BottomTabContainer = styled.div`
   display: flex;
@@ -49,7 +49,7 @@ const BottomTabBox = styled.div`
 function BottomTab() {
   const [isLogined, setIsLogined] = useState(false);
   const [tap, setTap] = useState("home");
-  const [showQR, setShowQR] = useRecoilState(showQRState);
+  const [showQR, setShowQR] = useRecoilState(showModalState);
   const [qrvalue, setQrvalue] = useRecoilState(qrValueState);
   const [modalProps, setModalProps] = useRecoilState(modalPropsState);
   const [myAddress, setMyAddress] = useRecoilState(myAddressState);

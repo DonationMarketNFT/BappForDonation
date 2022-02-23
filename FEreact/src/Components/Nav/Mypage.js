@@ -1,13 +1,19 @@
 import styled from "styled-components";
-import { media } from "../../styles/theme";
-import img1 from "../../assets/banners/0.jpg";
+import { media, theme } from "../../styles/theme";
+// import img1 from "../../assets/banners/0.jpg";
 import { motion } from "framer-motion";
 import { data } from "../../api/mynft";
 import { makeNewImagePath } from "../../utils";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Button, Modal, ModalDialog } from "react-bootstrap";
-import { myAddressState } from "../../atom";
+import { myAddressState, myBalanceState, profileImageState } from "../../atom";
 import { useRecoilState } from "recoil";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faClone,
+  faCopy,
+  faGripLinesVertical,
+} from "@fortawesome/free-solid-svg-icons";
 
 const ProfileContainer = styled.div`
   display: flex;
@@ -47,35 +53,41 @@ const ProfileImage = styled.div`
 `;
 
 const ProfileInfoBox = styled.div`
+  width: 50%;
   margin: 10px;
   margin-bottom: 20px;
   ${media.mobile} {
-    width: 80%;
+    width: 100%;
+    padding: 0 10px;
   }
 `;
 
 const ProfileInfo = styled.div`
+  display: flex;
+  position: relative;
   margin-top: 20px;
-  span {
-    display: block;
-  }
-  span:first-child {
+  height: 50px;
+  label {
+    position: absolute;
+    top: -18px;
+    left: 5px;
     color: gray;
-    font-size: 22px;
-    ${media.tablet} {
-      font-size: 16px;
-    }
   }
-  span:last-child {
-    font-size: 24px;
-    background: rgba(0, 0, 0, 0.1);
-    padding: 5px 10px;
-    border-radius: 5px;
-    ${media.tablet} {
-      font-size: 18px;
-    }
-    ${media[768]} {
-      font-size: 15px;
+  input {
+    all: unset;
+    height: 40px;
+    padding: 0 10px;
+    font-size: 18px;
+  }
+  &:first-child {
+    input {
+      background: ${theme.color.accentColor};
+      border-radius: 5px;
+      width: 100%;
+      color: white;
+      ${media.mobile} {
+        font-size: 13px;
+      }
     }
   }
 `;
@@ -116,18 +128,33 @@ const NFTBox = styled(motion.div)`
   }
 `;
 
+const CopyBox = styled.div`
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  color: white;
+  /* left: 100px; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+`;
+
 const boxVariants = { hover: { scale: 1.05 } };
-const DEFAULT_IMAGE = img1;
+const DEFAULT_IMAGE =
+  "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png";
 
 function Mypage() {
   const [profile, setProfile] = useState(DEFAULT_IMAGE);
+  // const [profile, setProfile] = useRecoilState(profileImageState);
+  const [myAddress, setMyAddress] = useRecoilState(myAddressState);
+  const [myBalance, setMyBalance] = useRecoilState(myBalanceState);
   const [show, setShow] = useState(false);
   const [value, setValue] = useState("");
-  const [myAddress, setMyAddress] = useRecoilState(myAddressState);
+  const copyLinkRef = useRef();
 
   const handleClose = (e) => {
     setShow(false);
-    // console.log(e);
   };
   const handleShow = (e) => {
     setShow(true);
@@ -139,22 +166,44 @@ function Mypage() {
     handleClose();
   };
 
+  const copyAddress = () => {
+    copyLinkRef.current.focus();
+    copyLinkRef.current.select();
+    navigator.clipboard.writeText(copyLinkRef.current.value).then(() => {
+      alert("주소를 복사했습니다.");
+    });
+  };
+
   return (
     <>
       <ProfileContainer>
         <ProfileImage bgphoto={profile} />
         <ProfileInfoBox>
+          {/* <ProfileInfo>
+            <label htmlFor="name">Name</label>
+            <input id="name" readOnly type="text" value="유저이름" />
+          </ProfileInfo> */}
           <ProfileInfo>
-            <span>Name</span>
-            <span>유저이름</span>
+            <label htmlFor="address">Wallet Address</label>
+            <input
+              id="address"
+              readOnly
+              type="text"
+              value={myAddress}
+              ref={copyLinkRef}
+            />
+            <CopyBox onClick={copyAddress}>
+              <FontAwesomeIcon icon={faClone} />
+            </CopyBox>
           </ProfileInfo>
           <ProfileInfo>
-            <span>Wallet Address</span>
-            <span>{myAddress}</span>
-          </ProfileInfo>
-          <ProfileInfo>
-            <span>Wallet Balance</span>
-            <span>523 Klay</span>
+            <label htmlFor="balance">Wallet Balance</label>
+            <input
+              id="balance"
+              readOnly
+              type="text"
+              value={`${myBalance} Klay`}
+            />
           </ProfileInfo>
         </ProfileInfoBox>
       </ProfileContainer>
@@ -180,7 +229,6 @@ function Mypage() {
             <Button variant="secondary" onClick={handleClose}>
               Close
             </Button>
-            {/* <Button variant="primary" onClick={() => onNFTClicked(data)}> */}
             <Button variant="primary" onClick={handleOK}>
               OK
             </Button>

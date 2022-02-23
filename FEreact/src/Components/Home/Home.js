@@ -2,13 +2,15 @@ import { useState } from "react";
 import { Carousel } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import Test from "../../api/UseCaver";
 import img1 from "../../assets/banners/0.jpg";
 import img2 from "../../assets/banners/1.jpg";
 import img3 from "../../assets/banners/2.jpg";
 import { theme } from "../../styles/theme";
 import NewSlider from "./NewSlider";
 import PopularSlider from "./PopularSlider";
+import * as KlipAPI from "../../api/UseKlip";
+import { useRecoilState } from "recoil";
+import { myAddressState, qrValueState, showModalState } from "../../atom";
 
 function Banner() {
   const [index, setIndex] = useState(0);
@@ -54,17 +56,15 @@ const ViewAllButton = styled.button`
 `;
 
 function Home() {
-  // console.log(DonationContract.methods);
-
   return (
     <>
       <Banner />
+
       <NewSlider />
       <PopularSlider />
       <Link to="/campaigns">
         <ViewAllButton>View All Campaigns</ViewAllButton>
       </Link>
-      <Test />
     </>
   );
 }
