@@ -147,7 +147,7 @@ function Header() {
 
   const onClickTest = (_name, _desc, _amount) => {
     setModalProps({
-      title: "캠페인 생성하시겠습니까?",
+      title: "캠페인 생성을 위한 Klip 지갑 요청",
       onConfirm: () => {
         testCreateCampaign(_name, _desc, _amount);
       },

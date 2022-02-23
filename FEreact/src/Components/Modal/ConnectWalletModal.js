@@ -130,21 +130,41 @@ function ConnectWalletModal() {
     <ModalWrapper show={showModal}>
       <ModalContent>
         <ConnectWalletContainer>
-          {myAddress !== "0x00" ? (
-            <>
-              <ConnectWalletModalHeader>
-                <h5>QR코드를 인식해주세요</h5>
-                <button>
-                  <FontAwesomeIcon
-                    onClick={() => {
-                      handleQRClose();
-                      setQrvalue("DEFAULT");
-                    }}
-                    icon={faTimes}
-                  />
-                </button>
-              </ConnectWalletModalHeader>
-              <ConnectWalletModalContent>
+          <ConnectWalletModalHeader>
+            <h5>{modalProps.title}</h5>
+            <button>
+              <FontAwesomeIcon
+                onClick={() => {
+                  handleQRClose();
+                  setQrvalue("DEFAULT");
+                }}
+                icon={faTimes}
+              />
+            </button>
+          </ConnectWalletModalHeader>
+          <ConnectWalletModalContent>
+            {qrvalue == "DEFAULT" ? (
+              <>
+                {isMobile ? null : (
+                  <>
+                    {/* 카이카스 
+                        <ConnectWalletCard>
+                          <img src={kaikas} />
+                          <h5>Connect To KaiKas Wallet</h5>
+                        </ConnectWalletCard> */}
+                    <ConnectWalletCard
+                      onClick={() => {
+                        modalProps.onConfirm();
+                      }}
+                    >
+                      <img src={klip} />
+                      <h5>Connect To Klip Wallet</h5>
+                    </ConnectWalletCard>
+                  </>
+                )}
+              </>
+            ) : (
+              <>
                 <QRContainer>
                   <QRCode
                     value={qrvalue}
@@ -152,57 +172,9 @@ function ConnectWalletModal() {
                     style={{ border: "10px solid white" }}
                   />
                 </QRContainer>
-              </ConnectWalletModalContent>
-            </>
-          ) : (
-            <>
-              <ConnectWalletModalHeader>
-                <h5>Connect Wallet</h5>
-                <button>
-                  <FontAwesomeIcon
-                    onClick={() => {
-                      handleQRClose();
-                      setQrvalue("DEFAULT");
-                    }}
-                    icon={faTimes}
-                  />
-                </button>
-              </ConnectWalletModalHeader>
-              <ConnectWalletModalContent>
-                {qrvalue == "DEFAULT" ? (
-                  <>
-                    {isMobile ? null : (
-                      <>
-                        {/* 카이카스 
-                        <ConnectWalletCard>
-                          <img src={kaikas} />
-                          <h5>Connect To KaiKas Wallet</h5>
-                        </ConnectWalletCard> */}
-                        <ConnectWalletCard
-                          onClick={() => {
-                            modalProps.onConfirm();
-                          }}
-                        >
-                          <img src={klip} />
-                          <h5>Connect To Klip Wallet</h5>
-                        </ConnectWalletCard>
-                      </>
-                    )}
-                  </>
-                ) : (
-                  <>
-                    <QRContainer>
-                      <QRCode
-                        value={qrvalue}
-                        size={256}
-                        style={{ border: "10px solid white" }}
-                      />
-                    </QRContainer>
-                  </>
-                )}
-              </ConnectWalletModalContent>
-            </>
-          )}
+              </>
+            )}
+          </ConnectWalletModalContent>
         </ConnectWalletContainer>
       </ModalContent>
     </ModalWrapper>
