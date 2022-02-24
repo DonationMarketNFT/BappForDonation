@@ -1,6 +1,8 @@
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { data } from "../../api/allpresentdata";
+import { testCampaignList } from "../../api/UseCaver";
 import { media } from "../../styles/theme";
 import { makeNewImagePath } from "../../utils";
 
@@ -35,14 +37,30 @@ const Box = styled.div`
 `;
 
 function Present() {
+  const [presentData, setPresentData] = useState([]);
+  const getPresentData = async () => {
+    const results = await testCampaignList();
+    const array = [];
+    for (let i = 0; i < results.length; i++) {
+      if (results[i].campaign_state) {
+        array.push(results[i]);
+      }
+    }
+    setPresentData(array);
+  };
+
+  useEffect(() => {
+    getPresentData();
+  }, []);
+
   return (
     <Wrapper>
       <GridBox>
-        {data.map((o, i) => (
+        {presentData.map((data, i) => (
           <>
-            <BoxContainer key={i}>
-              <Link to={`/campaign/${o.id}`}>
-                <Box bgphoto={makeNewImagePath(o.id)} />
+            <BoxContainer key={`presentkey${i}`}>
+              <Link to={`/campaign/${data[7]}`}>
+                <Box bgphoto={makeNewImagePath(data[7])} />
               </Link>
             </BoxContainer>
           </>

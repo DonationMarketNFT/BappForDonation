@@ -159,7 +159,7 @@ function NewSlider() {
           <Row>
             {newData.slice(3, 9).map((newData, i) => (
               <Box
-                key={i}
+                key={`newkey${i}`}
                 bgphoto={makeNewImagePath(newData[7])}
                 onClick={() => onBoxClicked(newData[7])}
               ></Box>
