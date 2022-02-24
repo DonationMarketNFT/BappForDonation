@@ -134,7 +134,7 @@ function PopularSlider() {
     if (leaving) return;
     setBack(true);
     toggleLeaving();
-    const totalData = 6; //임시 (데이터length 이용)
+    const totalData = 6;
     const maxIndex = Math.floor(totalData / offset) - 1;
     // 현재 인덱스가 첫번째 인덱스일 경우엔 마지막 인덱스로 넘김
     setIndex((prev) => (prev === 0 ? maxIndex : prev - 1));
@@ -144,7 +144,7 @@ function PopularSlider() {
     if (leaving) return;
     setBack(false);
     toggleLeaving();
-    const totalData = 6; //임시
+    const totalData = 6;
     const maxIndex = Math.floor(totalData / offset) - 1;
     // 현재 인덱스가 마지막 인덱스일 경우엔 첫번째 인덱스로 넘김
     setIndex((prev) => (prev === maxIndex ? 0 : prev + 1));
@@ -161,10 +161,9 @@ function PopularSlider() {
         <Slider>
           <SliderTitle>Popular Campaigns</SliderTitle>
           <Row>
-            {popularData.slice(0, 6).map((data, i) => (
+            {popularData.slice(0, 6).map((popularData, i) => (
               <Box
-                key={i}
-                // length={data.length}
+                key={`popular${i}`}
                 bgphoto={makeNewImagePath(popularData[7])}
                 onClick={() => onBoxClicked(popularData[7])}
               ></Box>
@@ -191,7 +190,6 @@ function PopularSlider() {
               transition={{ type: "tween", duration: 1 }}
               key={index}
             >
-              {/* slice 조건문 수정필요? */}
               {popularData
                 .slice(0, 6)
                 .slice(offset * index, offset * index + offset)

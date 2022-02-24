@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { data } from "../../api/allpresentdata";
 import { testCampaignList } from "../../api/UseCaver";
 import { media } from "../../styles/theme";
 import { makeNewImagePath } from "../../utils";

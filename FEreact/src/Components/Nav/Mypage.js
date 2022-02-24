@@ -1,19 +1,14 @@
 import styled from "styled-components";
 import { media, theme } from "../../styles/theme";
-// import img1 from "../../assets/banners/0.jpg";
 import { motion } from "framer-motion";
 import { data } from "../../api/mynft";
 import { makeNewImagePath } from "../../utils";
-import { useEffect, useRef, useState } from "react";
-import { Button, Modal, ModalDialog } from "react-bootstrap";
-import { myAddressState, myBalanceState, profileImageState } from "../../atom";
+import { useRef, useState } from "react";
+import { Button, Modal } from "react-bootstrap";
+import { myAddressState, myBalanceState } from "../../atom";
 import { useRecoilState } from "recoil";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faClone,
-  faCopy,
-  faGripLinesVertical,
-} from "@fortawesome/free-solid-svg-icons";
+import { faClone } from "@fortawesome/free-solid-svg-icons";
 
 const ProfileContainer = styled.div`
   display: flex;
@@ -133,7 +128,6 @@ const CopyBox = styled.div`
   right: 10px;
   top: 10px;
   color: white;
-  /* left: 100px; */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -146,7 +140,6 @@ const DEFAULT_IMAGE =
 
 function Mypage() {
   const [profile, setProfile] = useState(DEFAULT_IMAGE);
-  // const [profile, setProfile] = useRecoilState(profileImageState);
   const [myAddress, setMyAddress] = useRecoilState(myAddressState);
   const [myBalance, setMyBalance] = useRecoilState(myBalanceState);
   const [show, setShow] = useState(false);
@@ -179,10 +172,6 @@ function Mypage() {
       <ProfileContainer>
         <ProfileImage bgphoto={profile} />
         <ProfileInfoBox>
-          {/* <ProfileInfo>
-            <label htmlFor="name">Name</label>
-            <input id="name" readOnly type="text" value="유저이름" />
-          </ProfileInfo> */}
           <ProfileInfo>
             <label htmlFor="address">Wallet Address</label>
             <input

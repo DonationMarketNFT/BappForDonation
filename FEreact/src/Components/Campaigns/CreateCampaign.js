@@ -22,7 +22,7 @@ const Container = styled.div`
   margin: 100px auto;
   ${media.tablet} {
     width: auto;
-    margin: 100px 30px;
+    margin: 70px 30px;
   }
 `;
 
@@ -34,16 +34,12 @@ const FormTitle = styled.h3`
 `;
 
 function CreateCampaign() {
-  const [myAddress, setMyAddress] = useRecoilState(myAddressState);
   const [modalProps, setModalProps] = useRecoilState(modalPropsState);
   const [showModal, setShowModal] = useRecoilState(showModalState);
   const [qrvalue, setQrvalue] = useRecoilState(qrValueState);
   const navigate = useNavigate();
 
   const inputRef = createRef();
-
-  // 각 인풋의 value를 인자로 전달하여 onClickTest 실행하는 함슈
-  // 첫번째 지갑주소 밸류는 필요없음..
 
   const createCam = (e) => {
     e.preventDefault();
@@ -75,7 +71,6 @@ function CreateCampaign() {
 
   return (
     <>
-      {/* {myAddress !== "0x00" ? ( */}
       <Container>
         <FormTitle>CREATE CAMPAIGN</FormTitle>
         <Form
@@ -84,10 +79,6 @@ function CreateCampaign() {
             createCam(e);
           }}
         >
-          <Form.Group className="mb-3">
-            <Form.Label>Klip 지갑 주소</Form.Label>
-            <Form.Control readOnly type="text" value={myAddress} />
-          </Form.Group>
           <Form.Group className="mb-3">
             <Form.Label>캠페인 이름</Form.Label>
             <Form.Control
@@ -121,14 +112,11 @@ function CreateCampaign() {
               type="submit"
               style={{ border: 0, background: theme.color.accentColor }}
             >
-              제출
+              Klip 지갑으로 서명하기
             </Button>
           </div>
         </Form>
       </Container>
-      {/* ) : (
-        navigate("/")
-      )} */}
     </>
   );
 }

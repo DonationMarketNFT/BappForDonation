@@ -1,8 +1,10 @@
-import { useLocation, useParams } from "react-router";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router";
 import styled from "styled-components";
 import { data } from "../../api/allpresentdata";
 import { media } from "../../styles/theme";
 import { makeNewImagePath } from "../../utils";
+import { testCampaignList } from "../../api/UseCaver";
 
 const CampaignBox1 = styled.div`
   display: flex;
@@ -244,19 +246,34 @@ const DonationButton = styled.button`
 `;
 
 function Campaign() {
-  const location = useLocation();
   const params = useParams();
+  const [campaignInfo, setCampaignInfo] = useState([]);
+  const getCampaignInfo = async () => {
+    const results = await testCampaignList();
+    for (let i = 0; i < results.length; i++) {
+      if (results[i].campaignIndex === params.camId) {
+        setCampaignInfo(results[i]);
+      }
+    }
+  };
+  console.log(campaignInfo);
+  useEffect(() => {
+    getCampaignInfo();
+  }, []);
 
   return (
     <>
       <CampaignBox1>
-        <CampaignImage bgphoto={makeNewImagePath(data[params.camId - 1].id)} />
-        <CamPaignTitle>{data[params.camId - 1].name}</CamPaignTitle>
+        <CampaignImage bgphoto={makeNewImagePath(campaignInfo[7])} />
+        <CamPaignTitle>{campaignInfo[1]}</CamPaignTitle>
         <Bars>
           <PercentBar />
-          <CurrentBar width={"80%"} />
-          <Percent>80%</Percent>
-          <Klay>(800Klay / 1000Klay)</Klay>
+          <CurrentBar width={`${(campaignInfo[4] / campaignInfo[3]) * 100}%`} />
+          <Percent>{(campaignInfo[4] / campaignInfo[3]) * 100}%</Percent>
+          <Klay>
+            (<span>{campaignInfo[4]}</span>Klay / <span>{campaignInfo[3]}</span>
+            Klay)
+          </Klay>
         </Bars>
       </CampaignBox1>
       <CampaignBox>
@@ -274,6 +291,7 @@ function Campaign() {
           </ParticipantBox>
           <DescriptionBox>
             <DescriptionTitle>Description</DescriptionTitle>
+            {campaignInfo[2]}
           </DescriptionBox>
         </CampaignRow>
         <CampaignRow style={{ padding: "50px 0" }}>

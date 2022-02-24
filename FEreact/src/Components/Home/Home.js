@@ -1,14 +1,10 @@
 import { useEffect, useState } from "react";
 import { Carousel } from "react-bootstrap";
 import styled from "styled-components";
-import img1 from "../../assets/banners/0.jpg";
-import img2 from "../../assets/banners/1.jpg";
-import img3 from "../../assets/banners/2.jpg";
 import { media } from "../../styles/theme";
 import NewSlider from "./NewSlider";
 import PopularSlider from "./PopularSlider";
 import Campaigns from "../Campaigns/Campaigns";
-import { data } from "../../api/allpresentdata";
 import { makeNewImagePath } from "../../utils";
 import { testCampaignList } from "../../api/UseCaver";
 import { useNavigate } from "react-router";
@@ -53,7 +49,6 @@ function Banner() {
     const results = await testCampaignList();
     const reverse = [...results].reverse().slice(0, 3);
     setBannerData(reverse);
-    console.log(bannerData);
   };
 
   const onBoxClicked = (index) => {

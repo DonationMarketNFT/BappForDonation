@@ -123,7 +123,6 @@ const ConnectWallet = styled.div`
   cursor: pointer;
 `;
 
-// 헤더 스크롤 이벤트
 const headVariants = {
   top: {
     backgroundColor: "rgba(0, 0, 0, 0)",
@@ -171,20 +170,6 @@ function Header() {
   //   setSearchOpen((prev) => !prev);
   // };
 
-  const handleQRClose = () => setShowModal(false);
-  const handleQRShow = () => setShowModal(true);
-
-  const onClickInfo = async () => {
-    const results = await testCampaignList();
-
-    alert(results[results.length - 1].campaign_name);
-  };
-
-  const onClickList = async () => {
-    const results = await testCampaignNumber();
-    alert(results);
-  };
-
   const getUserData = () => {
     setModalProps({
       title: "Connect Wallet",
@@ -200,7 +185,6 @@ function Header() {
     setShowModal(true);
   };
 
-  // 헤더 스크롤 이벤트
   useEffect(() => {
     scrollY.onChange(() => {
       if (scrollY.get() > 20) {
@@ -265,14 +249,11 @@ function Header() {
                 placeholder="Search for Campaign..."
               />
             </SearchForm> */}
-            <button onClick={onClickInfo}>infomation</button>
-            <button onClick={onClickList}>campaignNumber</button>
-            {/* {myAddress !== "0x00" ? ( */}
-            <Link to="/createCampaign">
-              <CreateCampaignBtn>create Campaign</CreateCampaignBtn>
-            </Link>
-            {/* ) : null} */}
-            {/* 주소가 기본값이 아니라면 mypage, 기본값이라면 connect wallet */}
+            {myAddress !== "0x00" ? (
+              <Link to="/createCampaign">
+                <CreateCampaignBtn>create Campaign</CreateCampaignBtn>
+              </Link>
+            ) : null}
             {myAddress !== "0x00" ? (
               <>
                 <Link to="/mypage">

@@ -111,7 +111,6 @@ function NewSlider() {
   const [index, setIndex] = useState(0);
   const [leaving, setLeaving] = useState(false);
   const [back, setBack] = useState(false);
-  const [modalShow, setModalShow] = useState(false);
   const navigate = useNavigate();
   const ismobile = window.screen.width >= 480 ? false : true;
 
@@ -130,7 +129,7 @@ function NewSlider() {
     if (leaving) return;
     setBack(true);
     toggleLeaving();
-    const totalData = 6; //임시 (데이터length 이용)
+    const totalData = 6;
     const maxIndex = Math.floor(totalData / offset) - 1;
     // 현재 인덱스가 첫번째 인덱스일 경우엔 마지막 인덱스로 넘김
     setIndex((prev) => (prev === 0 ? maxIndex : prev - 1));
@@ -140,7 +139,7 @@ function NewSlider() {
     if (leaving) return;
     setBack(false);
     toggleLeaving();
-    const totalData = 6; //임시
+    const totalData = 6;
     const maxIndex = Math.floor(totalData / offset) - 1;
     // 현재 인덱스가 마지막 인덱스일 경우엔 첫번째 인덱스로 넘김
     setIndex((prev) => (prev === maxIndex ? 0 : prev + 1));
@@ -186,7 +185,6 @@ function NewSlider() {
               transition={{ type: "tween", duration: 1 }}
               key={index}
             >
-              {/* slice 조건문 수정필요? */}
               {newData
                 .slice(3, 9) //  6개만 나오게 설정
                 .slice(offset * index, offset * index + offset)
@@ -194,7 +192,7 @@ function NewSlider() {
                   <>
                     <Box
                       style={{ position: "relative" }}
-                      key={i}
+                      key={`new${i}`}
                       bgphoto={makeNewImagePath(newData[7])}
                       onClick={() => onBoxClicked(newData[7])}
                     ></Box>

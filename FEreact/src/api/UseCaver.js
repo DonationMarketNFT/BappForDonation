@@ -45,7 +45,6 @@ export const testCampaignList = async () => {
     const list = await DonationContract.methods.campaignList([i]).call();
     lists.push(list);
   }
-  console.log(lists);
   return lists;
 };
 

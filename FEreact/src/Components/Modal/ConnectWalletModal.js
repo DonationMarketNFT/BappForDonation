@@ -119,12 +119,9 @@ const QRContainer = styled.div`
 `;
 
 function ConnectWalletModal() {
-  const [myAddress, setMyAddress] = useRecoilState(myAddressState);
   const [showModal, setShowModal] = useRecoilState(showModalState);
   const [modalProps, setModalProps] = useRecoilState(modalPropsState);
   const [qrvalue, setQrvalue] = useRecoilState(qrValueState);
-
-  const handleQRClose = () => setShowModal(false);
 
   return (
     <ModalWrapper show={showModal}>
@@ -135,7 +132,7 @@ function ConnectWalletModal() {
             <button>
               <FontAwesomeIcon
                 onClick={() => {
-                  handleQRClose();
+                  setShowModal(false);
                   setQrvalue("DEFAULT");
                 }}
                 icon={faTimes}
