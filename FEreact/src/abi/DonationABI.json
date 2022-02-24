@@ -326,6 +326,10 @@
       {
         "name": "campaign_refund_state",
         "type": "bool"
+      },
+      {
+        "name": "campaignIndex",
+        "type": "uint256"
       }
     ],
     "payable": false,
@@ -473,20 +477,6 @@
     "type": "function"
   },
   {
-    "constant": false,
-    "inputs": [
-      {
-        "name": "CampaignNumber",
-        "type": "uint256"
-      }
-    ],
-    "name": "CampaignInformation",
-    "outputs": [],
-    "payable": false,
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
     "constant": true,
     "inputs": [],
     "name": "symbol",
@@ -542,20 +532,6 @@
     "type": "function"
   },
   {
-    "constant": false,
-    "inputs": [
-      {
-        "name": "Id",
-        "type": "uint256"
-      }
-    ],
-    "name": "UserListCheck",
-    "outputs": [],
-    "payable": false,
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
     "constant": true,
     "inputs": [
       {
@@ -595,15 +571,6 @@
     ],
     "payable": false,
     "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "constant": false,
-    "inputs": [],
-    "name": "DonationList",
-    "outputs": [],
-    "payable": false,
-    "stateMutability": "nonpayable",
     "type": "function"
   },
   {
@@ -745,15 +712,6 @@
   },
   {
     "constant": false,
-    "inputs": [],
-    "name": "GetCampaignNumber",
-    "outputs": [],
-    "payable": false,
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "constant": false,
     "inputs": [
       {
         "name": "_campaign_name",
@@ -833,74 +791,6 @@
       }
     ],
     "name": "Refunded",
-    "type": "event"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": false,
-        "name": "result",
-        "type": "uint256[]"
-      }
-    ],
-    "name": "SearchDonationList",
-    "type": "event"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": false,
-        "name": "result",
-        "type": "address[]"
-      }
-    ],
-    "name": "SearchUserList",
-    "type": "event"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": false,
-        "name": "result",
-        "type": "uint256"
-      }
-    ],
-    "name": "SearchGegGampaignNumber",
-    "type": "event"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": false,
-        "name": "",
-        "type": "address"
-      },
-      {
-        "indexed": false,
-        "name": "",
-        "type": "string"
-      },
-      {
-        "indexed": false,
-        "name": "",
-        "type": "string"
-      },
-      {
-        "indexed": false,
-        "name": "",
-        "type": "uint256"
-      },
-      {
-        "indexed": false,
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "name": "SearchCampaignInformation",
     "type": "event"
   },
   {

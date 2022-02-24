@@ -1,5 +1,5 @@
 import { AnimatePresence, motion } from "framer-motion";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { media, theme } from "../../styles/theme";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -7,9 +7,9 @@ import {
   faChevronRight,
   faChevronLeft,
 } from "@fortawesome/free-solid-svg-icons";
-import { data } from "../../api/allpresentdata";
 import { makeNewImagePath } from "../../utils";
 import { useNavigate } from "react-router";
+import { testCampaignList } from "../../api/UseCaver";
 
 const Wrapper = styled.div`
   width: 935px;
@@ -115,6 +115,17 @@ function NewSlider() {
   const navigate = useNavigate();
   const ismobile = window.screen.width >= 480 ? false : true;
 
+  const [newData, setNewData] = useState([]);
+  const getNewData = async () => {
+    const results = await testCampaignList();
+    const reverse = [...results].reverse();
+    setNewData(reverse);
+  };
+
+  useEffect(() => {
+    getNewData();
+  }, []);
+
   const decreaseIndex = () => {
     if (leaving) return;
     setBack(true);
@@ -146,11 +157,11 @@ function NewSlider() {
         <Slider>
           <SliderTitle>New Campaigns</SliderTitle>
           <Row>
-            {data.slice(0, data.length).map((data) => (
+            {newData.slice(0, newData.length).map((newData, i) => (
               <Box
-                key={data.id}
-                bgphoto={makeNewImagePath(data.id)}
-                onClick={() => onBoxClicked(data.id)}
+                key={i}
+                bgphoto={makeNewImagePath(newData[0])}
+                onClick={() => onBoxClicked(newData[0])}
               ></Box>
             ))}
           </Row>
@@ -176,15 +187,30 @@ function NewSlider() {
               key={index}
             >
               {/* slice 조건문 수정필요? */}
-              {data
-                .slice(3, 9)
+              {newData
+                .slice(3, 9) //  6개만 나오게 설정
                 .slice(offset * index, offset * index + offset)
-                .map((data) => (
-                  <Box
-                    key={data.id}
-                    bgphoto={makeNewImagePath(data.id)}
-                    onClick={() => onBoxClicked(data.id)}
-                  ></Box>
+                .map((newData, i) => (
+                  <>
+                    <Box
+                      style={{ position: "relative" }}
+                      key={i}
+                      bgphoto={makeNewImagePath(newData[0])}
+                      onClick={() => onBoxClicked(newData[7])}
+                    >
+                      <span
+                        style={{
+                          position: "absolute",
+                          top: "160px",
+                          left: "50%",
+                          transform: "translate(-50%, 0)",
+                          color: "red",
+                        }}
+                      >
+                        {newData[1]}({newData[2]})
+                      </span>
+                    </Box>
+                  </>
                 ))}
             </Row>
           </AnimatePresence>
