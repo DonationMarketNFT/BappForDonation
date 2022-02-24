@@ -5,17 +5,17 @@ import { media } from "../../styles/theme";
 import { makeNewImagePath } from "../../utils";
 
 const Wrapper = styled.div`
-  margin: 100px 0;
+  margin: 50px 0;
 `;
 
-const PresentTitle = styled.h3`
-  margin: 30px 0;
-`;
-
-const FlexBox = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
+const GridBox = styled.div`
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+  width: 100%;
+  ${media.mobile} {
+    grid-template-columns: repeat(1, 1fr);
+  }
 `;
 
 const BoxContainer = styled.div`
@@ -28,23 +28,16 @@ const BoxContainer = styled.div`
 `;
 
 const Box = styled.div`
-  width: 180px;
   height: 150px;
-  margin: 10px 0;
-  background: black;
   background-image: url(${(props) => props.bgphoto});
   background-size: cover;
   background-position: center center;
-  ${media.mobile} {
-    width: 160px;
-  }
 `;
 
 function Present() {
   return (
     <Wrapper>
-      <PresentTitle>진행 중인 캠페인</PresentTitle>
-      <FlexBox>
+      <GridBox>
         {data.map((o, i) => (
           <>
             <BoxContainer key={i}>
@@ -54,7 +47,7 @@ function Present() {
             </BoxContainer>
           </>
         ))}
-      </FlexBox>
+      </GridBox>
     </Wrapper>
   );
 }

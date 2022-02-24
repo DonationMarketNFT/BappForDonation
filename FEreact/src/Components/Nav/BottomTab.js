@@ -77,10 +77,10 @@ function BottomTab() {
             <FontAwesomeIcon icon={faHome}></FontAwesomeIcon>
             <span>홈</span>
           </BottomTabBox>
-          <BottomTabBox onClick={() => setTap("search")}>
+          {/* <BottomTabBox onClick={() => setTap("search")}>
             <FontAwesomeIcon icon={faSearch}></FontAwesomeIcon>
             <span>검색</span>
-          </BottomTabBox>
+          </BottomTabBox> */}
           <BottomTabBox onClick={() => setTap("user")}>
             {isLogined ? (
               <>

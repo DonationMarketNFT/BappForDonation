@@ -7,7 +7,6 @@ import {
   faChevronRight,
   faChevronLeft,
 } from "@fortawesome/free-solid-svg-icons";
-import NewModal from "../Modal/NewModal";
 import { data } from "../../api/populardata";
 import { makePopularImagePath } from "../../utils";
 import { useNavigate } from "react-router";

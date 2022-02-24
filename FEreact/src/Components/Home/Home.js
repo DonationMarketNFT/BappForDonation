@@ -1,70 +1,85 @@
 import { useState } from "react";
 import { Carousel } from "react-bootstrap";
-import { Link } from "react-router-dom";
 import styled from "styled-components";
 import img1 from "../../assets/banners/0.jpg";
 import img2 from "../../assets/banners/1.jpg";
 import img3 from "../../assets/banners/2.jpg";
-import { theme } from "../../styles/theme";
+import { media } from "../../styles/theme";
 import NewSlider from "./NewSlider";
-import PopularSlider from "./PopularSlider";
-import * as KlipAPI from "../../api/UseKlip";
-import { useRecoilState } from "recoil";
-import { myAddressState, qrValueState, showModalState } from "../../atom";
+import Campaigns from "../Campaigns/Campaigns";
+import { data } from "../../api/allpresentdata";
+import { makeNewImagePath } from "../../utils";
+
+const Span = styled.span`
+  font-size: 40px;
+  color: white;
+  position: absolute;
+  left: 150px;
+  bottom: 130px;
+  ${media[768]} {
+    left: 80px;
+    bottom: 100px;
+  }
+`;
+
+const Desc = styled.span`
+  font-size: 18px;
+  color: gray;
+  position: absolute;
+  left: 150px;
+  bottom: 100px;
+  ${media[768]} {
+    left: 80px;
+    bottom: 60px;
+  }
+`;
+
+const Container = styled.div`
+  background: black;
+`;
 
 function Banner() {
   const [index, setIndex] = useState(0);
   const imgs = [img1, img2, img3];
-  const ismobile = window.screen.width >= 480 ? false : true;
-
   const handleSelect = (selectedIndex, e) => {
     setIndex(selectedIndex);
   };
 
+  const array = [];
+  for (let i = 0; i < 3; i++) {
+    array.push(makeNewImagePath(data[i].id));
+  }
+
   return (
-    <Carousel activeIndex={index} onSelect={handleSelect} className="mb-3">
-      {imgs.map((o, i) => (
-        <Carousel.Item key={i} style={{ height: "60vh" }}>
-          <img
-            style={{
-              height: "100%",
-              objectFit: "none",
-            }}
-            className="d-block w-100"
-            src={o}
-            alt="banner image"
-          />
-        </Carousel.Item>
-      ))}
-    </Carousel>
+    <Container>
+      <Carousel activeIndex={index} onSelect={handleSelect} className="mb-3">
+        {array.map((o, i) => (
+          <Carousel.Item key={i} style={{ height: "50vh" }}>
+            <img
+              style={{
+                height: "100%",
+                objectFit: "none",
+                backgroundRepeat: "repeat-x",
+              }}
+              className="d-block w-100"
+              src={o}
+              alt="banner image"
+            />
+            <Span>{data[i].name}</Span>
+            <Desc>{data[i].description}</Desc>
+          </Carousel.Item>
+        ))}
+      </Carousel>
+    </Container>
   );
 }
-
-const ViewAllButton = styled.button`
-  all: unset;
-  display: block;
-  margin: 50px auto 100px auto;
-  padding: 15px 30px;
-  border-radius: 20px;
-  ${theme.BoxShadow1}
-
-  &:hover {
-    ${theme.BoxShadow2}
-    transform: translateY(-3px);
-    transition: all 0.3s ease;
-  }
-`;
 
 function Home() {
   return (
     <>
       <Banner />
-
       <NewSlider />
-      <PopularSlider />
-      <Link to="/campaigns">
-        <ViewAllButton>View All Campaigns</ViewAllButton>
-      </Link>
+      <Campaigns />
     </>
   );
 }

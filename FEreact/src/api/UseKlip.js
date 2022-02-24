@@ -72,7 +72,7 @@ export const executeContract = (
               setQrvalue("DEFAULT");
             }
           });
-      });
+      }, 1000);
     });
 };
 

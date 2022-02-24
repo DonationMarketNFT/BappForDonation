@@ -1,19 +1,19 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
 import styled from "styled-components";
-import { media } from "../../styles/theme";
+import { media, theme } from "../../styles/theme";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faChevronRight,
   faChevronLeft,
 } from "@fortawesome/free-solid-svg-icons";
-import { data } from "../../api/newdata";
+import { data } from "../../api/allpresentdata";
 import { makeNewImagePath } from "../../utils";
 import { useNavigate } from "react-router";
 
 const Wrapper = styled.div`
   width: 935px;
-  margin: 0 auto;
+  margin: 100px auto;
   padding: 30px;
   ${media.tablet} {
     width: auto;
@@ -25,17 +25,26 @@ const Wrapper = styled.div`
 
 const Slider = styled.div`
   position: relative;
-  height: 150px;
+  height: 220px;
   z-index: 1;
+  margin-top: 30px;
 `;
 
-const SliderTitle = styled.h3``;
+const SliderTitle = styled.h3`
+  ${theme.font.medium}
+  text-align: center;
+  padding-bottom: 5px;
+  border-bottom: 1px solid lightgray;
+  ${media[768]} {
+    margin-bottom: 20px;
+  }
+`;
 
 const Row = styled(motion.div)`
   position: absolute;
   bottom: 0;
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 10px;
   width: 100%;
   padding: 0 60px;
@@ -54,7 +63,10 @@ const Box = styled(motion.div)`
   background-image: url(${(props) => props.bgphoto});
   background-position: center center;
   background-size: cover;
-  height: 120px;
+  height: 150px;
+  ${media[768]} {
+    height: 120px;
+  }
 `;
 
 const Prev = styled(motion.div)`
@@ -93,7 +105,7 @@ const rowVariants = {
   }),
 };
 
-const offset = 4;
+const offset = 3;
 
 function NewSlider() {
   const [index, setIndex] = useState(0);
@@ -107,7 +119,7 @@ function NewSlider() {
     if (leaving) return;
     setBack(true);
     toggleLeaving();
-    const totalData = data.length; //임시 (데이터length 이용)
+    const totalData = 6; //임시 (데이터length 이용)
     const maxIndex = Math.floor(totalData / offset) - 1;
     // 현재 인덱스가 첫번째 인덱스일 경우엔 마지막 인덱스로 넘김
     setIndex((prev) => (prev === 0 ? maxIndex : prev - 1));
@@ -117,7 +129,7 @@ function NewSlider() {
     if (leaving) return;
     setBack(false);
     toggleLeaving();
-    const totalData = data.length; //임시
+    const totalData = 6; //임시
     const maxIndex = Math.floor(totalData / offset) - 1;
     // 현재 인덱스가 마지막 인덱스일 경우엔 첫번째 인덱스로 넘김
     setIndex((prev) => (prev === maxIndex ? 0 : prev + 1));
@@ -132,7 +144,7 @@ function NewSlider() {
     <Wrapper>
       {ismobile ? (
         <Slider>
-          <SliderTitle>New Campaign</SliderTitle>
+          <SliderTitle>New Campaigns</SliderTitle>
           <Row>
             {data.slice(0, data.length).map((data) => (
               <Box
@@ -145,7 +157,7 @@ function NewSlider() {
         </Slider>
       ) : (
         <Slider>
-          <SliderTitle>New Campaign</SliderTitle>
+          <SliderTitle>New Campaigns</SliderTitle>
           <Prev whileHover={{ opacity: 1 }} onClick={decreaseIndex}>
             <FontAwesomeIcon icon={faChevronLeft} size="2x" />
           </Prev>
@@ -165,6 +177,7 @@ function NewSlider() {
             >
               {/* slice 조건문 수정필요? */}
               {data
+                .slice(3, 9)
                 .slice(offset * index, offset * index + offset)
                 .map((data) => (
                   <Box

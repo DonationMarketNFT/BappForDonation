@@ -15,9 +15,11 @@ const Container = styled.div`
 `;
 
 const CampaignsTitle = styled.h3`
-  ${theme.font.large}
+  ${theme.font.medium}
   text-align: center;
-  margin-bottom: 80px;
+  margin-bottom: 50px;
+  padding-bottom: 5px;
+  border-bottom: 1px solid lightgray;
 `;
 
 const Tabs = styled.div`
@@ -30,14 +32,13 @@ const Tabs = styled.div`
 const Tab = styled.span`
   text-align: center;
   text-transform: uppercase;
-  font-size: 12px;
-  /* font-weight: ${(props) => (props.isActive ? "bold" : "normal")}; */
-  background-color: rgba(0, 0, 0, 0.5);
-  padding: 10px 0px;
+  font-size: 14px;
+  background-color: rgba(0, 0, 0, 0.2);
+  padding: 15px 0px;
   border-radius: 10px;
   color: ${(props) =>
     props.isActive
-      ? props.theme.color.accentColor
+      ? props.theme.color.accentTextColor
       : props.theme.color.textColor};
   a {
     display: block;
@@ -46,16 +47,15 @@ const Tab = styled.span`
 
 function Campaigns() {
   const path = useLocation();
-  // const detail = search === "present";
   return (
     <>
       <Container>
         <CampaignsTitle>All Campaigns</CampaignsTitle>
         <Tabs>
-          <Tab isActive={path.pathname === "/campaigns/present"}>
+          <Tab isActive={path.pathname === "/present"}>
             <Link to="present">진행 중 캠페인</Link>
           </Tab>
-          <Tab isActive={path.pathname === "/campaigns/past"}>
+          <Tab isActive={path.pathname === "/past"}>
             <Link to="past">완료된 캠페인</Link>
           </Tab>
         </Tabs>

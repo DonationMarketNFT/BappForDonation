@@ -38,21 +38,12 @@ const DonationContract = new caver.contract(
 );
 
 export const testCampaignList = async () => {
-  // const Number = await DonationContract.methods.CampaignNumber().call();
-  // const infos = [];
-  // for (let i = 0; i < Number; i++) {
-  //   const info = await DonationContract.methods.campaignList(i).call();
-  //   infos.push(info);
-  // }
-  // console.log(infos);
-
-  // return infos;
   const Number = await DonationContract.methods.CampaignNumber().call();
 
   const lists = [];
   for (let i = 0; i < Number; i++) {
     const list = await DonationContract.methods.campaignList(0).call();
-    lists.push(list.campaign_name);
+    lists.push(list);
   }
   console.log(lists);
   return lists;

@@ -41,6 +41,7 @@ export const theme = {
     textColor: "#333",
     accentColor:
       "linear-gradient(135deg, rgba(252,167,143,1) 0%,rgba(253,138,105,1) 100%)",
+    accentTextColor: "rgba(253, 138, 105)",
     bg_color: "#fff",
   },
   font,

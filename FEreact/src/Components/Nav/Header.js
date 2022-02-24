@@ -1,4 +1,3 @@
-import QRCode from "qrcode.react";
 import { motion, useAnimation, useViewportScroll } from "framer-motion";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
@@ -56,9 +55,12 @@ const Col = styled.div`
   align-items: center;
 `;
 
-const Logo = styled.h1`
+const Logo = styled(motion.h1)`
+  @import url("https://fonts.googleapis.com/css2?family=Black+Han+Sans&display=swap");
+  font-family: "Black Han Sans", sans-serif;
   font-size: 32px;
   font-weight: bold;
+  color: white;
 `;
 
 // 어드밴스
@@ -96,6 +98,19 @@ const Mypage = styled.div`
   font-size: 14px;
   cursor: pointer;
 `;
+
+const CreateCampaignBtn = styled.div`
+  background: ${theme.color.accentColor};
+  margin-left: 15px;
+  padding: 10px 20px;
+  color: white;
+  font-weight: bold;
+  border-radius: 10px;
+  text-transform: uppercase;
+  font-size: 14px;
+  cursor: pointer;
+`;
+
 const ConnectWallet = styled.div`
   background: ${theme.color.accentColor};
   margin-left: 15px;
@@ -120,11 +135,21 @@ const headVariants = {
   },
 };
 
+const logoVariants = {
+  top: {
+    color: "white",
+  },
+  scroll: {
+    color: "black",
+  },
+};
+
 function Header() {
   // const [searchOpen, setSearchOpen] = useState(false);
   // const inputAnimation = useAnimation();
   const [isLogined, setIsLogined] = useState(false);
   const headAnimation = useAnimation();
+  const logoAnimation = useAnimation();
   const { scrollY } = useViewportScroll();
   const [showModal, setShowModal] = useRecoilState(showModalState);
   const [qrvalue, setQrvalue] = useRecoilState(qrValueState);
@@ -151,28 +176,13 @@ function Header() {
 
   const onClickInfo = async () => {
     const results = await testCampaignList();
-    alert(results);
+
+    alert(results[results.length - 1].campaign_name);
   };
 
   const onClickList = async () => {
     const results = await testCampaignNumber();
     alert(results);
-  };
-
-  const onClickTest = (_name, _desc, _amount) => {
-    setModalProps({
-      title: "캠페인 생성을 위한 Klip 지갑 요청",
-      onConfirm: () => {
-        testCreateCampaign(_name, _desc, _amount);
-      },
-    });
-    setShowModal(true);
-  };
-
-  const testCreateCampaign = (name, desc, amount) => {
-    KlipAPI.createCampaign(name, desc, amount, setQrvalue, (result) => {
-      alert(JSON.stringify(result));
-    });
   };
 
   const getUserData = () => {
@@ -202,6 +212,16 @@ function Header() {
   }, [scrollY, headAnimation]);
 
   useEffect(() => {
+    scrollY.onChange(() => {
+      if (scrollY.get() > 20) {
+        logoAnimation.start("scroll");
+      } else {
+        logoAnimation.start("top");
+      }
+    });
+  }, [scrollY, logoAnimation]);
+
+  useEffect(() => {
     getUserData();
     setShowModal(false);
   }, []);
@@ -211,7 +231,13 @@ function Header() {
       <Container>
         <Col>
           <Link to="/">
-            <Logo>Logo</Logo>
+            <Logo
+              variants={logoVariants}
+              animate={logoAnimation}
+              initial={"top"}
+            >
+              JOGAKBO
+            </Logo>
           </Link>
         </Col>
         <BrowserView>
@@ -241,13 +267,11 @@ function Header() {
             </SearchForm> */}
             <button onClick={onClickInfo}>infomation</button>
             <button onClick={onClickList}>campaignNumber</button>
-            <button
-              onClick={() => {
-                onClickTest("이름", "설명", 1000);
-              }}
-            >
-              create Campaign
-            </button>
+            {/* {myAddress !== "0x00" ? ( */}
+            <Link to="/createCampaign">
+              <CreateCampaignBtn>create Campaign</CreateCampaignBtn>
+            </Link>
+            {/* ) : null} */}
             {/* 주소가 기본값이 아니라면 mypage, 기본값이라면 connect wallet */}
             {myAddress !== "0x00" ? (
               <>
