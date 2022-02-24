@@ -1,16 +1,17 @@
 import { AnimatePresence, motion } from "framer-motion";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
-import { media } from "../../styles/theme";
+import { media, theme } from "../../styles/theme";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faChevronRight,
   faChevronLeft,
 } from "@fortawesome/free-solid-svg-icons";
 import { data } from "../../api/populardata";
-import { makePopularImagePath } from "../../utils";
+import { makeNewImagePath, makePopularImagePath } from "../../utils";
 import { useNavigate } from "react-router";
 import { isMobile } from "react-device-detect";
+import { testCampaignList } from "../../api/UseCaver";
 
 const Wrapper = styled.div`
   width: 935px;
@@ -26,17 +27,26 @@ const Wrapper = styled.div`
 
 const Slider = styled.div`
   position: relative;
-  height: 150px;
+  height: 220px;
   z-index: 1;
+  margin-top: 30px;
 `;
 
-const SliderTitle = styled.h3``;
+const SliderTitle = styled.h3`
+  ${theme.font.medium}
+  text-align: center;
+  padding-bottom: 5px;
+  border-bottom: 1px solid lightgray;
+  ${media[768]} {
+    margin-bottom: 20px;
+  }
+`;
 
 const Row = styled(motion.div)`
   position: absolute;
   bottom: 0;
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 10px;
   width: 100%;
   padding: 0 60px;
@@ -46,7 +56,7 @@ const Row = styled(motion.div)`
   ${media.mobile} {
     overflow-x: scroll;
     // 하드코딩 해결
-    grid-template-columns: repeat(12, 150px);
+    grid-template-columns: repeat(6, 150px);
     padding: 0 10px;
   }
 `;
@@ -55,7 +65,10 @@ const Box = styled(motion.div)`
   background-image: url(${(props) => props.bgphoto});
   background-position: center center;
   background-size: cover;
-  height: 120px;
+  height: 150px;
+  ${media[768]} {
+    height: 120px;
+  }
 `;
 
 const Prev = styled(motion.div)`
@@ -94,7 +107,7 @@ const rowVariants = {
   }),
 };
 
-const offset = 4;
+const offset = 3;
 
 function PopularSlider() {
   const [index, setIndex] = useState(0);
@@ -104,11 +117,24 @@ function PopularSlider() {
   const navigate = useNavigate();
   const ismobile = window.screen.width >= 480 ? false : true;
 
+  const [popularData, setPopularData] = useState([]);
+  const getPopularData = async () => {
+    const results = await testCampaignList();
+    const sort = results.sort(
+      (b, a) => b["current_amount"] - a["current_amount"]
+    );
+    setPopularData(sort);
+  };
+
+  useEffect(() => {
+    getPopularData();
+  }, []);
+
   const decreaseIndex = () => {
     if (leaving) return;
     setBack(true);
     toggleLeaving();
-    const totalData = data.length; //임시 (데이터length 이용)
+    const totalData = 6; //임시 (데이터length 이용)
     const maxIndex = Math.floor(totalData / offset) - 1;
     // 현재 인덱스가 첫번째 인덱스일 경우엔 마지막 인덱스로 넘김
     setIndex((prev) => (prev === 0 ? maxIndex : prev - 1));
@@ -118,7 +144,7 @@ function PopularSlider() {
     if (leaving) return;
     setBack(false);
     toggleLeaving();
-    const totalData = data.length; //임시
+    const totalData = 6; //임시
     const maxIndex = Math.floor(totalData / offset) - 1;
     // 현재 인덱스가 마지막 인덱스일 경우엔 첫번째 인덱스로 넘김
     setIndex((prev) => (prev === maxIndex ? 0 : prev + 1));
@@ -133,21 +159,21 @@ function PopularSlider() {
     <Wrapper>
       {ismobile ? (
         <Slider>
-          <SliderTitle>Popular Campaign</SliderTitle>
+          <SliderTitle>Popular Campaigns</SliderTitle>
           <Row>
-            {data.slice(0, data.length).map((data) => (
+            {popularData.slice(0, 6).map((data, i) => (
               <Box
-                key={data.id}
+                key={i}
                 // length={data.length}
-                bgphoto={makePopularImagePath(data.id)}
-                onClick={() => onBoxClicked(data.id)}
+                bgphoto={makeNewImagePath(popularData[7])}
+                onClick={() => onBoxClicked(popularData[7])}
               ></Box>
             ))}
           </Row>
         </Slider>
       ) : (
         <Slider>
-          <SliderTitle>Popular Campaign</SliderTitle>
+          <SliderTitle>Popular Campaigns</SliderTitle>
           <Prev whileHover={{ opacity: 1 }} onClick={decreaseIndex}>
             <FontAwesomeIcon icon={faChevronLeft} size="2x" />
           </Prev>
@@ -166,13 +192,14 @@ function PopularSlider() {
               key={index}
             >
               {/* slice 조건문 수정필요? */}
-              {data
+              {popularData
+                .slice(0, 6)
                 .slice(offset * index, offset * index + offset)
-                .map((data) => (
+                .map((popularData, i) => (
                   <Box
-                    key={data.id}
-                    bgphoto={makePopularImagePath(data.id)}
-                    onClick={() => onBoxClicked(data.id)}
+                    key={i}
+                    bgphoto={makeNewImagePath(popularData[7])}
+                    onClick={() => onBoxClicked(popularData[7])}
                   ></Box>
                 ))}
             </Row>

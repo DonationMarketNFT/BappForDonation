@@ -54,7 +54,7 @@ const Row = styled(motion.div)`
   ${media.mobile} {
     overflow-x: scroll;
     // 하드코딩 해결
-    grid-template-columns: repeat(9, 150px);
+    grid-template-columns: repeat(6, 150px);
     padding: 0 10px;
   }
 `;
@@ -157,11 +157,11 @@ function NewSlider() {
         <Slider>
           <SliderTitle>New Campaigns</SliderTitle>
           <Row>
-            {newData.slice(0, newData.length).map((newData, i) => (
+            {newData.slice(3, 9).map((newData, i) => (
               <Box
                 key={i}
-                bgphoto={makeNewImagePath(newData[0])}
-                onClick={() => onBoxClicked(newData[0])}
+                bgphoto={makeNewImagePath(newData[7])}
+                onClick={() => onBoxClicked(newData[7])}
               ></Box>
             ))}
           </Row>
@@ -195,21 +195,9 @@ function NewSlider() {
                     <Box
                       style={{ position: "relative" }}
                       key={i}
-                      bgphoto={makeNewImagePath(newData[0])}
+                      bgphoto={makeNewImagePath(newData[7])}
                       onClick={() => onBoxClicked(newData[7])}
-                    >
-                      <span
-                        style={{
-                          position: "absolute",
-                          top: "160px",
-                          left: "50%",
-                          transform: "translate(-50%, 0)",
-                          color: "red",
-                        }}
-                      >
-                        {newData[1]}({newData[2]})
-                      </span>
-                    </Box>
+                    ></Box>
                   </>
                 ))}
             </Row>

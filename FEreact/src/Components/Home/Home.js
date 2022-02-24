@@ -6,6 +6,7 @@ import img2 from "../../assets/banners/1.jpg";
 import img3 from "../../assets/banners/2.jpg";
 import { media } from "../../styles/theme";
 import NewSlider from "./NewSlider";
+import PopularSlider from "./PopularSlider";
 import Campaigns from "../Campaigns/Campaigns";
 import { data } from "../../api/allpresentdata";
 import { makeNewImagePath } from "../../utils";
@@ -76,7 +77,7 @@ function Banner() {
                 backgroundRepeat: "repeat-x",
               }}
               className="d-block w-100"
-              src={makeNewImagePath(data[0])}
+              src={makeNewImagePath(data[7])}
               alt="banner image"
             />
             <Span>{data[1]}</Span>
@@ -93,6 +94,7 @@ function Home() {
     <>
       <Banner />
       <NewSlider />
+      <PopularSlider />
       <Campaigns />
     </>
   );
