@@ -42,7 +42,7 @@ export const testCampaignList = async () => {
 
   const lists = [];
   for (let i = 0; i < Number; i++) {
-    const list = await DonationContract.methods.campaignList(0).call();
+    const list = await DonationContract.methods.campaignList([i]).call();
     lists.push(list);
   }
   console.log(lists);
