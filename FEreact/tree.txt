@@ -1,0 +1,61 @@
+.
+├── README.md
+├── node_modules
+├── package.json
+├── public
+│   ├── favicon.ico
+│   ├── index.html
+│   ├── manifest.json
+│   └── robots.txt
+├── src
+│   ├── App.js
+│   ├── App.test.js
+│   ├── Components
+│   │   ├── Campaigns           // 캠페인 관련 스크린
+│   │   │   ├── Campaign.js
+│   │   │   ├── Campaigns.js
+│   │   │   ├── Past.js
+│   │   │   └── Present.js
+│   │   ├── Home                // 홈화면 (배너, 슬라이더)
+│   │   │   ├── Home.js
+│   │   │   ├── NewSlider.js
+│   │   │   └── PopularSlider.js
+│   │   ├── Modal               // 모든 모달
+│   │   │   ├── ConnectWalletModal.js
+│   │   │   └── NewModal.js
+│   │   └── Nav                 // navbar + mypage
+│   │       ├── BottomTab.js
+│   │       ├── Header.js
+│   │       └── Mypage.js
+│   ├── abi
+│   │   └── DonationABI.json
+│   ├── api
+│   │   ├── UseCaver.js
+│   │   ├── UseKlip.js
+│   │   ├── allpastdata.js      // 임시 테스트용 데이터
+│   │   ├── allpresentdata.js   // 임시 테스트용 데이터
+│   │   ├── mynft.js            // 임시 테스트용 데이터
+│   │   ├── newdata.js          // 임시 테스트용 데이터
+│   │   └── populardata.js      // 임시 테스트용 데이터
+│   ├── assets                  // 이미지 파일 보관
+│   │   ├── banners             // 홈화면 배너 임시 이미지
+│   │   │   ├── 0.jpg
+│   │   │   ├── 1.jpg
+│   │   │   └── 2.jpg
+│   │   └── png                 // 현재 모달창에 쓰이는 svg파일 보관
+│   │       ├── kaikas-logo.svg
+│   │       └── klip-logo.svg
+│   ├── atom.js                 // recoil (전역 state 사용)
+│   ├── constants
+│   │   ├── constants.baobab.js
+│   │   └── constants.cypress.js
+│   ├── index.js
+│   ├── routes
+│   │   └── Router.js
+│   ├── setupTests.js
+│   ├── styles
+│   │   ├── global-style.js     // 전역 스타일 -> 수정시 모든 css에 반영
+│   │   └── theme.js            // 변수 형태로 css 사용
+│   └── utils.js                // util 함수. 전역적으로 사용시 등록
+├── tree.txt
+└── yarn.lock

@@ -15,7 +15,11 @@ import {
   qrValueState,
   showModalState,
 } from "../../atom";
-import { getBalance } from "../../api/UseCaver";
+import {
+  getBalance,
+  testCampaignList,
+  testCampaignNumber,
+} from "../../api/UseCaver";
 
 const Head = styled(motion.header)`
   position: fixed;
@@ -145,6 +149,16 @@ function Header() {
   const handleQRClose = () => setShowModal(false);
   const handleQRShow = () => setShowModal(true);
 
+  const onClickInfo = async () => {
+    const results = await testCampaignList();
+    alert(results);
+  };
+
+  const onClickList = async () => {
+    const results = await testCampaignNumber();
+    alert(results);
+  };
+
   const onClickTest = (_name, _desc, _amount) => {
     setModalProps({
       title: "캠페인 생성을 위한 Klip 지갑 요청",
@@ -225,6 +239,8 @@ function Header() {
                 placeholder="Search for Campaign..."
               />
             </SearchForm> */}
+            <button onClick={onClickInfo}>infomation</button>
+            <button onClick={onClickList}>campaignNumber</button>
             <button
               onClick={() => {
                 onClickTest("이름", "설명", 1000);

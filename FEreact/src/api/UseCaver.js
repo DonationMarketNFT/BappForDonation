@@ -37,6 +37,33 @@ const DonationContract = new caver.contract(
   DONATION_CONTRACT_ADDRESS
 );
 
+export const testCampaignList = async () => {
+  // const Number = await DonationContract.methods.CampaignNumber().call();
+  // const infos = [];
+  // for (let i = 0; i < Number; i++) {
+  //   const info = await DonationContract.methods.campaignList(i).call();
+  //   infos.push(info);
+  // }
+  // console.log(infos);
+
+  // return infos;
+  const Number = await DonationContract.methods.CampaignNumber().call();
+
+  const lists = [];
+  for (let i = 0; i < Number; i++) {
+    const list = await DonationContract.methods.campaignList(0).call();
+    lists.push(list.campaign_name);
+  }
+  console.log(lists);
+  return lists;
+};
+
+export const testCampaignNumber = async () => {
+  const Number = await DonationContract.methods.CampaignNumber().call();
+  console.log(`number:${Number}`);
+  return Number;
+};
+
 // klip 잔고 조회시 메인넷 chain_id 필요
 export const getBalance = (address) => {
   return caver.rpc.klay.getBalance(address).then((response) => {
