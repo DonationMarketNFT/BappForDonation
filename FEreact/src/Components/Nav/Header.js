@@ -14,11 +14,7 @@ import {
   qrValueState,
   showModalState,
 } from "../../atom";
-import {
-  getBalance,
-  testCampaignList,
-  testCampaignNumber,
-} from "../../api/UseCaver";
+import { getBalance } from "../../api/UseCaver";
 
 const Head = styled(motion.header)`
   position: fixed;

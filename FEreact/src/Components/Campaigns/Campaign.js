@@ -296,8 +296,8 @@ function Campaign() {
         </CampaignRow>
         <CampaignRow style={{ padding: "50px 0" }}>
           <DonationBox>
-            <CampaignName>{data[params.camId - 1].name}</CampaignName>
-            <CampaignDesc>{data[params.camId - 1].description}</CampaignDesc>
+            <CampaignName>{campaignInfo[1]}</CampaignName>
+            <CampaignDesc>{campaignInfo[2]}</CampaignDesc>
             <DonationForm>
               <DonationInput type="number" id="klay" step={10} />
               <label htmlFor="klay">Klay</label>

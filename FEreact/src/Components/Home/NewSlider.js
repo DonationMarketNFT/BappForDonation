@@ -51,9 +51,12 @@ const Row = styled(motion.div)`
   ${media.tablet} {
     padding: 0 50px;
   }
+  ${media[768]} {
+    gap: 5px;
+    padding: 0 30px;
+  }
   ${media.mobile} {
     overflow-x: scroll;
-    // 하드코딩 해결
     grid-template-columns: repeat(6, 150px);
     padding: 0 10px;
   }
@@ -65,7 +68,7 @@ const Box = styled(motion.div)`
   background-size: cover;
   height: 150px;
   ${media[768]} {
-    height: 120px;
+    height: 130px;
   }
 `;
 
