@@ -124,7 +124,12 @@ function ConnectWalletModal() {
   const [qrvalue, setQrvalue] = useRecoilState(qrValueState);
 
   return (
-    <ModalWrapper show={showModal}>
+    <ModalWrapper
+      show={showModal}
+      onHide={() => {
+        setShowModal(false);
+      }}
+    >
       <ModalContent>
         <ConnectWalletContainer>
           <ConnectWalletModalHeader>
