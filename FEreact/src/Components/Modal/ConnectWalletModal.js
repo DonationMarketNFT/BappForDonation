@@ -155,6 +155,7 @@ function ConnectWalletModal() {
                 <ConnectWalletCard
                   onClick={() => {
                     modalProps.onConfirm();
+                    setShowModal(false);
                   }}
                 >
                   <img src={klip} />
