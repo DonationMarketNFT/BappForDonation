@@ -220,9 +220,9 @@ function Header() {
             </Logo>
           </Link>
         </Col>
-        <BrowserView>
-          <Col>
-            {/* 어드밴스
+        {/* <BrowserView> */}
+        <Col>
+          {/* 어드밴스
             <SearchForm>
               <motion.svg
                 onClick={toggleSearch}
@@ -245,27 +245,27 @@ function Header() {
                 placeholder="Search for Campaign..."
               />
             </SearchForm> */}
-            {myAddress !== "0x00" ? (
-              <Link to="/createCampaign">
-                <CreateCampaignBtn>create Campaign</CreateCampaignBtn>
+          {myAddress !== "0x00" ? (
+            <Link to="/createCampaign">
+              <CreateCampaignBtn>create Campaign</CreateCampaignBtn>
+            </Link>
+          ) : null}
+          {myAddress !== "0x00" ? (
+            <>
+              <Link to="/mypage">
+                <Mypage>Mypage</Mypage>
               </Link>
-            ) : null}
-            {myAddress !== "0x00" ? (
-              <>
-                <Link to="/mypage">
-                  <Mypage>Mypage</Mypage>
-                </Link>
-              </>
-            ) : (
-              <>
-                <ConnectWallet onClick={getUserData}>
-                  Connect Wallet
-                </ConnectWallet>
-                {showModal ? <ConnectWalletModal /> : null}
-              </>
-            )}
-          </Col>
-        </BrowserView>
+            </>
+          ) : (
+            <>
+              <ConnectWallet onClick={getUserData}>
+                Connect Wallet
+              </ConnectWallet>
+              {showModal ? <ConnectWalletModal /> : null}
+            </>
+          )}
+        </Col>
+        {/* </BrowserView> */}
       </Container>
     </Head>
   );

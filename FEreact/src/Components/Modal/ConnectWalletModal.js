@@ -138,7 +138,7 @@ function ConnectWalletModal() {
               <FontAwesomeIcon
                 onClick={() => {
                   setShowModal(false);
-                  // setQrvalue("DEFAULT");
+                  setQrvalue("DEFAULT");
                 }}
                 icon={faTimes}
               />
@@ -155,7 +155,6 @@ function ConnectWalletModal() {
                 <ConnectWalletCard
                   onClick={() => {
                     modalProps.onConfirm();
-                    setShowModal(false);
                   }}
                 >
                   <img src={klip} />

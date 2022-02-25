@@ -21,7 +21,7 @@ function Router() {
         <Route path="/mypage" element={<Mypage />} />
         <Route path="/campaign/:camId" element={<Campaign />} />
       </Routes>
-      <BottomTab />
+      {/* <BottomTab /> */}
     </BrowserRouter>
   );
 }
