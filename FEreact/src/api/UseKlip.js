@@ -12,6 +12,19 @@ const getKlipAccessUrl = (method, request_key) => {
   return `kakaotalk://klipwallet/open?url=https://klipwallet.com/?target=/a2a?request_key=${request_key}`;
 };
 
+export const setStateToRefund = async (_campaignId, setQrvalue, callback) => {
+  const functionJson =
+    ' { "constant": false, "inputs": [ { "name": "_campaignId", "type": "uint256" } ], "name": "setStateToRefund", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function" }';
+  executeContract(
+    DONATION_CONTRACT_ADDRESS,
+    functionJson,
+    "0",
+    `[\"${_campaignId}\"]`,
+    setQrvalue,
+    callback
+  );
+};
+
 export const createCampaign = async (
   _campaign_name,
   _campaign_description,

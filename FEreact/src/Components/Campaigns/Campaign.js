@@ -1,10 +1,19 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import styled from "styled-components";
-import { data } from "../../api/allpresentdata";
 import { media } from "../../styles/theme";
 import { makeNewImagePath } from "../../utils";
 import { testCampaignList } from "../../api/UseCaver";
+import { isMobile } from "react-device-detect";
+import { Button } from "react-bootstrap";
+import { useRecoilState } from "recoil";
+import {
+  modalPropsState,
+  myAddressState,
+  qrValueState,
+  showModalState,
+} from "../../atom";
+import * as KlipAPI from "../../api/UseKlip";
 
 const CampaignBox1 = styled.div`
   display: flex;
@@ -86,6 +95,7 @@ const CampaignBox = styled.div`
     width: auto;
     margin: 0 30px;
     padding: 0 30px;
+    margin-bottom: ${(props) => (props.isMobile ? "300px" : "30px")};
   }
   ${media.mobile} {
     padding: 0 10px;
@@ -170,7 +180,7 @@ const DonationBox = styled.div`
     border-radius: 15px;
     border: 1px solid lightgray;
     position: fixed;
-    bottom: 10px;
+    bottom: ${(props) => (props.isMobile ? "90px" : "30px")};
     left: 50%;
     transform: translate(-50%, 0);
   }
@@ -245,7 +255,18 @@ const DonationButton = styled.button`
   }
 `;
 
+const ADMIN_ADDRESS = [
+  "0x185e4AAb7F58A43Bd85b031d29789b6A161d469f",
+  "0x058f878f26Bb1CbF2e4fb5c2E97f5911C67DC9CE",
+  "0x10c7a89139F09F125b18497aE99f273865FB94F6",
+  "0xA5707282Da9FC57C09e159B61cE9DAA646F838D4",
+];
+
 function Campaign() {
+  const [myAddress, setMyAddress] = useRecoilState(myAddressState);
+  const [showModal, setShowModal] = useRecoilState(showModalState);
+  const [modalProps, setModalProps] = useRecoilState(modalPropsState);
+  const [qrvalue, setQrvalue] = useRecoilState(qrValueState);
   const params = useParams();
   const [campaignInfo, setCampaignInfo] = useState([]);
   const getCampaignInfo = async () => {
@@ -256,10 +277,25 @@ function Campaign() {
       }
     }
   };
-  console.log(campaignInfo);
   useEffect(() => {
     getCampaignInfo();
   }, []);
+
+  const onClickRefund = (index) => {
+    setModalProps({
+      title: "refund 상태 변경 서명",
+      onConfirm: () => {
+        setState(index);
+      },
+    });
+    setShowModal(true);
+  };
+
+  const setState = (_campaignId) => {
+    KlipAPI.setStateToRefund(_campaignId, setQrvalue, (result) => {
+      alert(JSON.stringify(result));
+    });
+  };
 
   return (
     <>
@@ -275,8 +311,21 @@ function Campaign() {
             Klay)
           </Klay>
         </Bars>
+        {ADMIN_ADDRESS.indexOf(myAddress) >= 0 ? (
+          <div className="d-grid gap-2 w-100">
+            <Button
+              variant="danger"
+              onClick={() => {
+                onClickRefund(campaignInfo[7]);
+              }}
+              style={{ border: 0, margin: "20px 30px" }}
+            >
+              refund
+            </Button>
+          </div>
+        ) : null}
       </CampaignBox1>
-      <CampaignBox>
+      <CampaignBox isMobile={isMobile}>
         <CampaignRow>
           <ParticipantBox>
             <ParticipantRow>
@@ -295,13 +344,23 @@ function Campaign() {
           </DescriptionBox>
         </CampaignRow>
         <CampaignRow style={{ padding: "50px 0" }}>
-          <DonationBox>
+          <DonationBox isMobile={isMobile}>
             <CampaignName>{campaignInfo[1]}</CampaignName>
             <CampaignDesc>{campaignInfo[2]}</CampaignDesc>
             <DonationForm>
-              <DonationInput type="number" id="klay" step={10} />
-              <label htmlFor="klay">Klay</label>
-              <DonationButton>Donate</DonationButton>
+              {campaignInfo[5] ? (
+                <>
+                  <DonationInput type="number" id="klay" step={10} />
+                  <label id="klay_label" htmlFor="klay">
+                    Klay
+                  </label>
+                  <DonationButton id="donate_btn">Donate</DonationButton>
+                </>
+              ) : (
+                <DonationButton disabled id="donate_btn">
+                  Refunding...
+                </DonationButton>
+              )}
             </DonationForm>
           </DonationBox>
         </CampaignRow>
