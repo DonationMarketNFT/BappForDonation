@@ -19,6 +19,7 @@ import {
 import { useRecoilState } from "recoil";
 import { Link } from "react-router-dom";
 import { getBalance } from "../../api/UseCaver";
+import ConnectWalletModal from "../Modal/ConnectWalletModal";
 
 const BottomTabContainer = styled.div`
   display: flex;
@@ -116,6 +117,7 @@ function BottomTab() {
               </BottomTabBox>
             </>
           )}
+          {showModal ? <ConnectWalletModal /> : null}
         </BottomTabContainer>
       </MobileView>
     </>
