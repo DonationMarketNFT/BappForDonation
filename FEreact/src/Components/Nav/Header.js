@@ -43,6 +43,7 @@ const Container = styled.div`
   }
   ${media.mobile} {
     justify-content: center;
+    padding: 10px;
   }
 `;
 
