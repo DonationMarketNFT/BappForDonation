@@ -96,7 +96,8 @@ const CampaignBox = styled.div`
     width: auto;
     margin: 0 30px;
     padding: 0 30px;
-    margin-bottom: ${(props) => (props.isMobile ? "300px" : "30px")};
+    /* margin-bottom: ${(props) => (props.isMobile ? "300px" : "30px")}; */
+    margin-bottom: 30px;
   }
   ${media.mobile} {
     padding: 0 10px;
@@ -181,7 +182,8 @@ const DonationBox = styled.div`
     border-radius: 15px;
     border: 1px solid lightgray;
     position: fixed;
-    bottom: ${(props) => (props.isMobile ? "90px" : "30px")};
+    /* bottom: ${(props) => (props.isMobile ? "90px" : "30px")}; */
+    bottom: 30px;
     left: 50%;
     transform: translate(-50%, 0);
   }
