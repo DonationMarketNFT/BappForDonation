@@ -370,7 +370,7 @@ function Campaign() {
             }}
             style={{ border: 0, margin: "20px 30px" }}
           >
-            refund
+            Refund for User
           </Button>
         </div>
         {ADMIN_ADDRESS.indexOf(myAddress) >= 0 ? (
@@ -383,7 +383,7 @@ function Campaign() {
                 }}
                 style={{ border: 0, margin: "20px 30px" }}
               >
-                refund
+                Change State
               </Button>
             </div>
           </>
