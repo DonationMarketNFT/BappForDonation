@@ -352,7 +352,9 @@ function Campaign() {
         <CamPaignTitle>{campaignInfo[1]}</CamPaignTitle>
         <Bars>
           <PercentBar />
-          <CurrentBar width={`${(campaignInfo[4] / campaignInfo[3]) * 100}%`} />
+          <CurrentBar
+            width={`${(campaignInfo[4] / 10 ** 18 / campaignInfo[3]) * 100}%`}
+          />
           <Percent>
             {(campaignInfo[4] / 10 ** 18 / campaignInfo[3]) * 100}%
           </Percent>
