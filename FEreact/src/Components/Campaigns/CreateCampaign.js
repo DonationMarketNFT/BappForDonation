@@ -87,6 +87,7 @@ function CreateCampaign() {
               type="text"
               placeholder="캠페인 이름을 입력해주세요"
               required
+              autoComplete="off"
             />
           </Form.Group>
           <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
@@ -97,6 +98,7 @@ function CreateCampaign() {
               rows={5}
               placeholder="캠페인에 대해 설명해주세요"
               required
+              autoComplete="off"
             />
           </Form.Group>
           <Form.Group className="mb-3">
@@ -106,6 +108,7 @@ function CreateCampaign() {
               type="number"
               placeholder="목표 모금 금액을 입력해주세요"
               required
+              autoComplete="off"
             />
           </Form.Group>
           <div className="d-grid gap-2">

@@ -37,6 +37,20 @@ const DonationContract = new caver.contract(
   DONATION_CONTRACT_ADDRESS
 );
 
+export const testOwnTokenId = async (address) => {
+  const ids = await DonationContract.methods.tokenIds(address).call();
+  return ids;
+};
+
+export const testTokenId2Description = async (id) => {
+  const des = await DonationContract.methods.tokenDescription(id).call();
+  return des;
+};
+export const testTokenId2Name = async (id) => {
+  const des = await DonationContract.methods.tokenName(id).call();
+  return des;
+};
+
 export const testCampaignList = async () => {
   const Number = await DonationContract.methods.CampaignNumber().call();
 

@@ -3,12 +3,17 @@ import { media, theme } from "../../styles/theme";
 import { motion } from "framer-motion";
 import { data } from "../../api/mynft";
 import { makeNewImagePath } from "../../utils";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Button, Modal } from "react-bootstrap";
 import { myAddressState, myBalanceState } from "../../atom";
 import { useRecoilState } from "recoil";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClone } from "@fortawesome/free-solid-svg-icons";
+import {
+  testOwnTokenId,
+  testTokenId2Description,
+  testTokenId2Name,
+} from "../../api/UseCaver";
 
 const ProfileContainer = styled.div`
   display: flex;
@@ -145,6 +150,27 @@ function Mypage() {
   const [show, setShow] = useState(false);
   const [value, setValue] = useState("");
   const copyLinkRef = useRef();
+  const [ownToken, setOwnToken] = useState([]);
+  const getOwnTokenIds = async (address) => {
+    const ids = await testOwnTokenId(address);
+    return ids;
+  };
+
+  const getOwnTokenInfo = async () => {
+    let ownTokenArray = [];
+    const ids = await getOwnTokenIds(myAddress);
+    for (let id of ids) {
+      const description = await testTokenId2Description(id);
+      const name = await testTokenId2Name(id);
+      ownTokenArray.push([id, name, description]);
+    }
+    setOwnToken(ownTokenArray);
+  };
+  useEffect(() => {
+    getOwnTokenInfo();
+  }, []);
+
+  console.log(ownToken);
 
   const handleClose = (e) => {
     setShow(false);
@@ -198,14 +224,14 @@ function Mypage() {
       </ProfileContainer>
       <NFTContainer>
         <h3>My NFTs</h3>
-        {data.map((o, i) => (
+        {ownToken.map((data, i) => (
           <>
             <NFTBox
               key={i}
               onClick={(e) => handleShow(e)}
               variants={boxVariants}
               whileHover="hover"
-              bgphoto={makeNewImagePath(o.id)}
+              bgphoto={makeNewImagePath(data)}
             />
           </>
         ))}

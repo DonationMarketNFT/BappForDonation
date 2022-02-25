@@ -126,6 +126,7 @@ function PopularSlider() {
     const sort = results.sort(
       (b, a) => b["current_amount"] - a["current_amount"]
     );
+    sort.reverse();
     setPopularData(sort);
   };
 

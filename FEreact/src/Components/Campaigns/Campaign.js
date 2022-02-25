@@ -300,6 +300,30 @@ function Campaign() {
     });
   };
 
+  const onSubmit = (e) => {
+    e.preventDefault();
+    const _campaignId = campaignInfo[7] - 1;
+    const _amount = e.target.klay.value;
+
+    onClickDonate(_campaignId, _amount);
+  };
+
+  const onClickDonate = (_campaignId, _amount) => {
+    setModalProps({
+      title: "기부를 위한 Klip 지갑 요청",
+      onConfirm: () => {
+        onDonatedTocampaign(_campaignId, _amount);
+      },
+    });
+    setShowModal(true);
+  };
+
+  const onDonatedTocampaign = (_campaignId, _amount) => {
+    KlipAPI.donateTocampaign(_campaignId, _amount, setQrvalue, (result) => {
+      alert(JSON.stringify(result));
+    });
+  };
+
   return (
     <>
       <CampaignBox1>
@@ -308,9 +332,12 @@ function Campaign() {
         <Bars>
           <PercentBar />
           <CurrentBar width={`${(campaignInfo[4] / campaignInfo[3]) * 100}%`} />
-          <Percent>{(campaignInfo[4] / campaignInfo[3]) * 100}%</Percent>
+          <Percent>
+            {(campaignInfo[4] / 10 ** 18 / campaignInfo[3]) * 100}%
+          </Percent>
           <Klay>
-            (<span>{campaignInfo[4]}</span>Klay / <span>{campaignInfo[3]}</span>
+            (<span>{campaignInfo[4] / 10 ** 18}</span>Klay /{" "}
+            <span>{campaignInfo[3]}</span>
             Klay)
           </Klay>
         </Bars>
@@ -353,21 +380,34 @@ function Campaign() {
           <DonationBox isMobile={isMobile}>
             <CampaignName>{campaignInfo[1]}</CampaignName>
             <CampaignDesc>{campaignInfo[2]}</CampaignDesc>
-            <DonationForm>
-              {campaignInfo[5] ? (
-                <>
-                  <DonationInput type="number" id="klay" step={10} />
+            {campaignInfo[5] ? (
+              <>
+                <DonationForm
+                  onSubmit={(e) => {
+                    onSubmit(e);
+                  }}
+                >
+                  <DonationInput
+                    type="number"
+                    name="klay"
+                    id="klay"
+                    autoComplete="off"
+                    required
+                    step={0.0000001}
+                  />
                   <label id="klay_label" htmlFor="klay">
                     Klay
                   </label>
                   <DonationButton id="donate_btn">Donate</DonationButton>
-                </>
-              ) : (
+                </DonationForm>
+              </>
+            ) : (
+              <DonationForm>
                 <DonationButton disabled id="donate_btn">
                   Refunding...
                 </DonationButton>
-              )}
-            </DonationForm>
+              </DonationForm>
+            )}
           </DonationBox>
         </CampaignRow>
       </CampaignBox>
