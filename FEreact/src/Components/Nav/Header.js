@@ -57,6 +57,9 @@ const Logo = styled(motion.h1)`
   font-size: 32px;
   font-weight: bold;
   color: white;
+  ${media.mobile} {
+    font-size: 24px;
+  }
 `;
 
 // 어드밴스
@@ -93,6 +96,10 @@ const Mypage = styled.div`
   text-transform: uppercase;
   font-size: 14px;
   cursor: pointer;
+  ${media.mobile} {
+    font-size: 10px;
+    padding: 10px;
+  }
 `;
 
 const CreateCampaignBtn = styled.div`
@@ -105,6 +112,10 @@ const CreateCampaignBtn = styled.div`
   text-transform: uppercase;
   font-size: 14px;
   cursor: pointer;
+  ${media.mobile} {
+    font-size: 10px;
+    padding: 10px;
+  }
 `;
 
 const ConnectWallet = styled.div`
@@ -117,6 +128,10 @@ const ConnectWallet = styled.div`
   text-transform: uppercase;
   font-size: 14px;
   cursor: pointer;
+  ${media.mobile} {
+    font-size: 10px;
+    padding: 10px;
+  }
 `;
 
 const headVariants = {
@@ -220,9 +235,9 @@ function Header() {
             </Logo>
           </Link>
         </Col>
-        <BrowserView>
-          <Col>
-            {/* 어드밴스
+        {/* <BrowserView> */}
+        <Col>
+          {/* 어드밴스
             <SearchForm>
               <motion.svg
                 onClick={toggleSearch}
@@ -245,27 +260,27 @@ function Header() {
                 placeholder="Search for Campaign..."
               />
             </SearchForm> */}
-            {myAddress !== "0x00" ? (
-              <Link to="/createCampaign">
-                <CreateCampaignBtn>create Campaign</CreateCampaignBtn>
+          {myAddress !== "0x00" ? (
+            <Link to="/createCampaign">
+              <CreateCampaignBtn>create Campaign</CreateCampaignBtn>
+            </Link>
+          ) : null}
+          {myAddress !== "0x00" ? (
+            <>
+              <Link to="/mypage">
+                <Mypage>Mypage</Mypage>
               </Link>
-            ) : null}
-            {myAddress !== "0x00" ? (
-              <>
-                <Link to="/mypage">
-                  <Mypage>Mypage</Mypage>
-                </Link>
-              </>
-            ) : (
-              <>
-                <ConnectWallet onClick={getUserData}>
-                  Connect Wallet
-                </ConnectWallet>
-                {showModal ? <ConnectWalletModal /> : null}
-              </>
-            )}
-          </Col>
-        </BrowserView>
+            </>
+          ) : (
+            <>
+              <ConnectWallet onClick={getUserData}>
+                Connect Wallet
+              </ConnectWallet>
+              {showModal ? <ConnectWalletModal /> : null}
+            </>
+          )}
+        </Col>
+        {/* </BrowserView> */}
       </Container>
     </Head>
   );
