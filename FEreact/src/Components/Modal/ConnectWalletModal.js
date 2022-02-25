@@ -138,7 +138,7 @@ function ConnectWalletModal() {
               <FontAwesomeIcon
                 onClick={() => {
                   setShowModal(false);
-                  setQrvalue("DEFAULT");
+                  // setQrvalue("DEFAULT");
                 }}
                 icon={faTimes}
               />
