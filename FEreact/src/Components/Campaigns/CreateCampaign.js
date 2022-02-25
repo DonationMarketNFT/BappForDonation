@@ -16,6 +16,7 @@ import {
   testCampaignNumber,
 } from "../../api/UseCaver";
 import { createRef, useEffect } from "react";
+import ConnectWalletModal from "../Modal/ConnectWalletModal";
 
 const Container = styled.div`
   width: 935px;
@@ -116,6 +117,7 @@ function CreateCampaign() {
             </Button>
           </div>
         </Form>
+        {showModal ? <ConnectWalletModal /> : null}
       </Container>
     </>
   );

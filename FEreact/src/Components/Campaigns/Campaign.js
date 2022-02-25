@@ -14,6 +14,7 @@ import {
   showModalState,
 } from "../../atom";
 import * as KlipAPI from "../../api/UseKlip";
+import ConnectWalletModal from "../Modal/ConnectWalletModal";
 
 const CampaignBox1 = styled.div`
   display: flex;
@@ -288,7 +289,9 @@ function Campaign() {
         setState(index);
       },
     });
+    console.log(modalProps);
     setShowModal(true);
+    console.log(showModal);
   };
 
   const setState = (_campaignId) => {
@@ -312,17 +315,20 @@ function Campaign() {
           </Klay>
         </Bars>
         {ADMIN_ADDRESS.indexOf(myAddress) >= 0 ? (
-          <div className="d-grid gap-2 w-100">
-            <Button
-              variant="danger"
-              onClick={() => {
-                onClickRefund(campaignInfo[7]);
-              }}
-              style={{ border: 0, margin: "20px 30px" }}
-            >
-              refund
-            </Button>
-          </div>
+          <>
+            <div className="d-grid gap-2 w-100">
+              <Button
+                variant="danger"
+                onClick={() => {
+                  onClickRefund(campaignInfo[7] - 1);
+                }}
+                style={{ border: 0, margin: "20px 30px" }}
+              >
+                refund
+              </Button>
+            </div>
+            {showModal ? <ConnectWalletModal /> : null}
+          </>
         ) : null}
       </CampaignBox1>
       <CampaignBox isMobile={isMobile}>
