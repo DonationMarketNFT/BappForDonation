@@ -142,23 +142,19 @@ function ConnectWalletModal() {
           <ConnectWalletModalContent>
             {qrvalue == "DEFAULT" ? (
               <>
-                {isMobile ? null : (
-                  <>
-                    {/* 카이카스 
+                {/* 카이카스 
                         <ConnectWalletCard>
                           <img src={kaikas} />
                           <h5>Connect To KaiKas Wallet</h5>
                         </ConnectWalletCard> */}
-                    <ConnectWalletCard
-                      onClick={() => {
-                        modalProps.onConfirm();
-                      }}
-                    >
-                      <img src={klip} />
-                      <h5>Connect To Klip Wallet</h5>
-                    </ConnectWalletCard>
-                  </>
-                )}
+                <ConnectWalletCard
+                  onClick={() => {
+                    modalProps.onConfirm();
+                  }}
+                >
+                  <img src={klip} />
+                  <h5>Connect To Klip Wallet</h5>
+                </ConnectWalletCard>
               </>
             ) : (
               <>
