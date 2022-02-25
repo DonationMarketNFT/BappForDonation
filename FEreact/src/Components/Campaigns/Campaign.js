@@ -282,6 +282,7 @@ function Campaign() {
   };
   useEffect(() => {
     getCampaignInfo();
+    setShowModal(false);
   }, []);
 
   // 환불
