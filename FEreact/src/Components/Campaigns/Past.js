@@ -30,8 +30,9 @@ const BoxContainer = styled.div`
 
 const Box = styled.div`
   height: 150px;
-  background: black;
-  margin-bottom: 20px;
+  background-image: url(${(props) => props.bgphoto});
+  background-size: cover;
+  background-position: center center;
 `;
 
 function Past() {
