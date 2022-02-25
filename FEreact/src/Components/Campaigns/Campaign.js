@@ -282,6 +282,26 @@ function Campaign() {
     getCampaignInfo();
   }, []);
 
+  // 환불
+  const onClickUserRefund = (index) => {
+    console.log(index);
+    console.log(myAddress);
+    setModalProps({
+      title: "refund",
+      onConfirm: () => {
+        setRefund(index, myAddress);
+      },
+    });
+    setShowModal(true);
+  };
+
+  const setRefund = (_campaignId, _userAddr) => {
+    KlipAPI.refund(_campaignId, _userAddr, setQrvalue, (result) => {
+      alert(JSON.stringify(result));
+    });
+  };
+
+  // 상태 변경
   const onClickRefund = (index) => {
     setModalProps({
       title: "refund 상태 변경 서명",
@@ -300,6 +320,7 @@ function Campaign() {
     });
   };
 
+  // 도네이션
   const onSubmit = (e) => {
     e.preventDefault();
     const _campaignId = campaignInfo[7] - 1;
@@ -341,6 +362,17 @@ function Campaign() {
             Klay)
           </Klay>
         </Bars>
+        <div className="d-grid gap-2 w-100">
+          <Button
+            variant="danger"
+            onClick={() => {
+              onClickUserRefund(campaignInfo[7] - 1);
+            }}
+            style={{ border: 0, margin: "20px 30px" }}
+          >
+            refund
+          </Button>
+        </div>
         {ADMIN_ADDRESS.indexOf(myAddress) >= 0 ? (
           <>
             <div className="d-grid gap-2 w-100">
@@ -354,9 +386,9 @@ function Campaign() {
                 refund
               </Button>
             </div>
-            {showModal ? <ConnectWalletModal /> : null}
           </>
         ) : null}
+        {showModal ? <ConnectWalletModal /> : null}
       </CampaignBox1>
       <CampaignBox isMobile={isMobile}>
         <CampaignRow>

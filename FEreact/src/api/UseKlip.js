@@ -12,6 +12,19 @@ const getKlipAccessUrl = (method, request_key) => {
   return `kakaotalk://klipwallet/open?url=https://klipwallet.com/?target=/a2a?request_key=${request_key}`;
 };
 
+export const refund = async (_campaignId, _userAddr, setQrvalue, callback) => {
+  const functionJson =
+    '{ "constant": false, "inputs": [ { "name": "_campaignId", "type": "uint256" }, { "name": "_userAddr", "type": "address" } ], "name": "refund", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function" }';
+  executeContract(
+    DONATION_CONTRACT_ADDRESS,
+    functionJson,
+    "0",
+    `[\"${_campaignId}\",\"${_userAddr}\"]`,
+    setQrvalue,
+    callback
+  );
+};
+
 export const donateTocampaign = async (
   _campaignId,
   _amount,
@@ -19,11 +32,11 @@ export const donateTocampaign = async (
   callback
 ) => {
   const functionJson =
-    ' { "constant": false, "inputs": [ { "name": "_campaignId", "type": "uint256" }, { "name": "_amount", "type": "uint256" } ], "name": "donateTocampaign", "outputs": [], "payable": true, "stateMutability": "payable", "type": "function" }';
+    '{ "constant": false, "inputs": [ { "name": "_campaignId", "type": "uint256" }, { "name": "_amount", "type": "uint256" } ], "name": "donateTocampaign", "outputs": [], "payable": true, "stateMutability": "payable", "type": "function" }';
   executeContract(
     DONATION_CONTRACT_ADDRESS,
     functionJson,
-    _amount * 10 ** 18,
+    (_amount * 10 ** 18).toString(),
     `[\"${_campaignId}\",\"${_amount}\"]`,
     setQrvalue,
     callback

@@ -12,8 +12,8 @@ const modalPropsState = atom({
 
 const myAddressState = atom({
   key: "my_address",
-  // default: "0xD216a6beBdDECa9b862c1423b31CFA5188E5cB3C",
-  default: "0x00",
+  default: "0xD216a6beBdDECa9b862c1423b31CFA5188E5cB3C",
+  // default: "0x00",
 });
 
 const myBalanceState = atom({

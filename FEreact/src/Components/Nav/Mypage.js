@@ -177,7 +177,6 @@ function Mypage() {
   };
   const handleShow = (e) => {
     setShow(true);
-    setValue(e.target.attributes.bgphoto.value);
   };
 
   const handleOK = () => {
@@ -228,14 +227,14 @@ function Mypage() {
           <>
             <NFTBox
               key={i}
-              onClick={(e) => handleShow(e)}
+              // onClick={(e) => handleShow(e)}
               variants={boxVariants}
               whileHover="hover"
               bgphoto={makeNewImagePath(data)}
             />
           </>
         ))}
-        <Modal show={show} onHide={handleClose}>
+        {/* <Modal show={show} onHide={handleClose}>
           <Modal.Header closeButton>
             <Modal.Title>프로필 변경</Modal.Title>
           </Modal.Header>
@@ -248,7 +247,7 @@ function Mypage() {
               OK
             </Button>
           </Modal.Footer>
-        </Modal>
+        </Modal> */}
       </NFTContainer>
     </>
   );
