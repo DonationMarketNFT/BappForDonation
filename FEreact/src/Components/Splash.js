@@ -10,7 +10,7 @@ const Container = styled.div`
   left: 0;
   right: 0;
   ${theme.flexCenter}
-  background: white;
+  background:${theme.color.accentColor};
   z-index: 99999;
   font-size: 36px;
 `;

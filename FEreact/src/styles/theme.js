@@ -39,8 +39,7 @@ const BoxShadow2 = css`
 export const theme = {
   color: {
     textColor: "#333",
-    accentColor:
-      "linear-gradient(135deg, rgba(252,167,143,1) 0%,rgba(253,138,105,1) 100%)",
+    accentColor: "linear-gradient(to right, #e55d87, #5fc3e4);",
     accentTextColor: "rgb(253, 138, 105)",
     bg_color: "#fff",
   },
