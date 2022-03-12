@@ -166,8 +166,9 @@ function ConnectWalletModal() {
                 <QRContainer>
                   <QRCode
                     value={qrvalue}
+                    // bgColor fgColor
                     size={256}
-                    style={{ border: "10px solid white" }}
+                    includeMargin
                   />
                 </QRContainer>
               </>

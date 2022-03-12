@@ -1,4 +1,4 @@
-import { css } from "styled-components";
+import styled, { css } from "styled-components";
 
 // 다크모드에서 변경할 부분 + 자주 쓰는 css 추가
 
@@ -39,7 +39,7 @@ const BoxShadow2 = css`
 export const theme = {
   color: {
     textColor: "#333",
-    accentColor: "linear-gradient(to right, #e55d87, #5fc3e4);",
+    accentColor: "linear-gradient(45deg, #FEAC5E 0%,#C779D0 50%,#4BC0C8 100%);",
     accentTextColor: "rgb(253, 138, 105)",
     bg_color: "#fff",
   },
