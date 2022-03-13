@@ -138,11 +138,13 @@ const ConnectWallet = styled.div`
 const headVariants = {
   top: {
     backgroundColor: "rgba(0, 0, 0, 0)",
+    backdropFilter: "none",
     borderBottom: "1px solid rgba(255, 255, 255, 0)",
   },
   scroll: {
-    backgroundColor: "rgba(255, 255, 255, 1)",
-    borderBottom: "1px solid rgba(255, 255, 255, 0.9)",
+    backgroundColor: "rgba(255, 255, 255, 0.25)",
+    backdropFilter: "blur(7.5px)",
+    border: "1px solid rgba(255, 255, 255, 0.18)",
   },
 };
 
