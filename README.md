@@ -1,48 +1,40 @@
-<h1 align="center">클레이튼 기반 기부 서비스 조각보</h1>
-<hr />
+# 조각보
 
-<img src="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/6bb6414f-7687-4fb3-a5f0-7af59df1c369/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220225%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220225T143608Z&X-Amz-Expires=86400&X-Amz-Signature=6a4c7b60f4197e6569e5675da72b569d56e3cd419d0c1e2e5fba2c3696a1f660&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22Untitled.png%22&x-id=GetObject" />
-<img src="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/14735da6-9526-41e5-b7bd-f96f1b8db904/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220225%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220225T143722Z&X-Amz-Expires=86400&X-Amz-Signature=d08c1775daa6d5af76c4820d0df66f0d768cf09e71ff46b08742a03720f073ed&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22Untitled.png%22&x-id=GetObject" />
-<img src="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/68f1e049-3125-4f71-8459-11aebfad33e2/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220225%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220225T143751Z&X-Amz-Expires=86400&X-Amz-Signature=c867ef299179e87613a18c40911477c46b8b83389d343d6f6c2f98afbb86c709&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22Untitled.png%22&x-id=GetObject" />
+클레이튼 기반 기부 서비스([바로가기](https://relaxed-snyder-7acf42.netlify.app/))
 
+## 개발자
 
-<h3>메인기능 리스트</h3>
-<hr />
-<h4>1. 캠페인 생성</h4>
-<br/>
+- 김다운 : [Smart Contract](https://github.com/DonationMarketNFT/BappForDonation/tree/main/SmartContract)
+- 배지선 : [Smart Contract](https://github.com/DonationMarketNFT/BappForDonation/tree/main/SmartContract)
+- 백시아 : [Front(React)](https://github.com/DonationMarketNFT/BappForDonation/tree/main/FEreact)
+- 김민준 : [Front(React Native)](https://github.com/DonationMarketNFT/BappForDonation/tree/main/FErn)
 
-function createCampaign(
-    string memory _campaign_name,
-    string memory _campaign_description,
-    uint256 _target_amount
-) public {}
-<br/>
-<br/>
-<br/>
+## 기술
 
-<h4>2. 기부 (기부 등록, 토큰 발행, 토큰 전송)</h4>
-<br/>
-function donateTocampaign(uint256 _campaignId, uint256 _amount) public payable {}
-<br/>
-<br/>
-<br/>
+`Solidity` `React.js` `Recoil` `Styled-components` `caver-js`
 
-<h4>3. 환불 </h4>
-<br/>
-function refund(uint256 _campaignId, address _userAddr) external {}
+## 특징
 
-<br/>
-<br/>
-<br/>
+- 반응형
+- 최신 캠페인 슬라이더
+- 인기 캠페인 슬라이더
+- 모든 캠페인 조회
+- 지갑(카카오 클립) 연동 로그인
+- 캠페인 기부 및 환불
+- 관리자 계정
 
-<h3>FE Directory Tree</h3>
-<hr />
+## [스마트 컨트랙트 주요 함수](https://github.com/DonationMarketNFT/BappForDonation/blob/main/SmartContract/contracts/DonationCampaign_update.sol)
+
+- createCampaign
+- donateTocampaign
+- refund
+
+## FE Directory Tree
 
 ```bash
 .
 ├── README.md
 ├── node_modules
-│       └── readme.md
 ├── package.json
 ├── public
 │   ├── favicon.ico
@@ -99,20 +91,21 @@ function refund(uint256 _campaignId, address _userAddr) external {}
 │   │   ├── global-style.js
 │   │   └── theme.js
 │   └── utils.js
-├── tree.txt
-├── tree2.txt
 └── yarn.lock
 ```
 
-<br />
-<br />
-<br />
+## Screenshots
 
-<h3>Screenshots</h3>
-<hr />
-<img src="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/da5d93b8-258f-4f17-b213-78db59e9aed1/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2022-02-25_%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE_11.51.05.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220225%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220225T145337Z&X-Amz-Expires=86400&X-Amz-Signature=fb8305fb5c43a5a5b11988f793d0931fb439d01fda32f4dca298a5d97216a57e&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22%25E1%2584%2589%25E1%2585%25B3%25E1%2584%258F%25E1%2585%25B3%25E1%2584%2585%25E1%2585%25B5%25E1%2586%25AB%25E1%2584%2589%25E1%2585%25A3%25E1%2586%25BA%25202022-02-25%2520%25E1%2584%258B%25E1%2585%25A9%25E1%2584%2592%25E1%2585%25AE%252011.51.05.png%22&x-id=GetObject" />
-<img src="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/9ba6ab6a-1a61-4201-84ab-0c5658532895/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2022-02-25_%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE_11.55.34.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220225%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220225T145646Z&X-Amz-Expires=86400&X-Amz-Signature=cfc47663da1a132f11eb5bcb52813ed11807c1184acce93969c6b4a0e2ad8c01&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22%25E1%2584%2589%25E1%2585%25B3%25E1%2584%258F%25E1%2585%25B3%25E1%2584%2585%25E1%2585%25B5%25E1%2586%25AB%25E1%2584%2589%25E1%2585%25A3%25E1%2586%25BA%25202022-02-25%2520%25E1%2584%258B%25E1%2585%25A9%25E1%2584%2592%25E1%2585%25AE%252011.55.34.png%22&x-id=GetObject"/>
-<img src="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/a88cd61c-481e-4b2e-a47e-4f1511c67879/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2022-02-25_%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE_11.54.57.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220225%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220225T145541Z&X-Amz-Expires=86400&X-Amz-Signature=897b02caa3e5dba1dc4d2c3ee73ef92640f6b188c639392c49fb58fc8bfbb90a&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22%25E1%2584%2589%25E1%2585%25B3%25E1%2584%258F%25E1%2585%25B3%25E1%2584%2585%25E1%2585%25B5%25E1%2586%25AB%25E1%2584%2589%25E1%2585%25A3%25E1%2586%25BA%25202022-02-25%2520%25E1%2584%258B%25E1%2585%25A9%25E1%2584%2592%25E1%2585%25AE%252011.54.57.png%22&x-id=GetObject" />
-<img src="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/4826f9ee-37ad-40b9-b6cf-6dea3e318dc3/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2022-02-25_%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE_11.54.45.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220225%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220225T145600Z&X-Amz-Expires=86400&X-Amz-Signature=1ab9c160a09c7b2f00703495f3afa0a89562070fe1d41cdcb0f14512dff76bd5&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22%25E1%2584%2589%25E1%2585%25B3%25E1%2584%258F%25E1%2585%25B3%25E1%2584%2585%25E1%2585%25B5%25E1%2586%25AB%25E1%2584%2589%25E1%2585%25A3%25E1%2586%25BA%25202022-02-25%2520%25E1%2584%258B%25E1%2585%25A9%25E1%2584%2592%25E1%2585%25AE%252011.54.45.png%22&x-id=GetObject" />
-<img src="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/07ba8a21-add7-47ed-8444-407ec2656729/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2022-02-25_%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE_11.54.13.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220225%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220225T145621Z&X-Amz-Expires=86400&X-Amz-Signature=bde5b1916ef90b8cc2fb3f7a8a1b7429620bfaea753ec0c1d1e6b91e729d32cb&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22%25E1%2584%2589%25E1%2585%25B3%25E1%2584%258F%25E1%2585%25B3%25E1%2584%2585%25E1%2585%25B5%25E1%2586%25AB%25E1%2584%2589%25E1%2585%25A3%25E1%2586%25BA%25202022-02-25%2520%25E1%2584%258B%25E1%2585%25A9%25E1%2584%2592%25E1%2585%25AE%252011.54.13.png%22&x-id=GetObject" />
-
+<div align="center">
+<img width="500" src="https://user-images.githubusercontent.com/94106976/169788590-651f8e93-ff52-4a30-bbfe-3a57d265d77a.png" />
+<img width="500" src="https://user-images.githubusercontent.com/94106976/169788640-0c90c974-e73d-4888-a9ff-88cf085ba1ab.png" />
+<img width="500" src="https://user-images.githubusercontent.com/94106976/169788700-d5593722-cf76-486b-bcf9-cd89912f35bc.png" />
+<img width="500" src="https://user-images.githubusercontent.com/94106976/169788744-002c0427-a73a-422d-8eb1-38be1cd54a01.png" />
+<img width="500" src="https://user-images.githubusercontent.com/94106976/169788877-bb123ef1-5d15-46fd-807a-7b3f73aa16a9.png" />
+<img width="500" src="https://user-images.githubusercontent.com/94106976/169788902-c814ea54-3f20-4f31-a9c6-1a03f910a1b8.png" />
+</div>
+<div align="center">
+<img width="300" src="https://user-images.githubusercontent.com/94106976/169789049-97fb8047-045c-494b-b3e4-20e4d1c2cbd9.png" />
+<img width="300" src="https://user-images.githubusercontent.com/94106976/169789082-ac6095f5-632c-4456-8fac-3f6d113bfbba.png" />
+<img width="300" src="https://user-images.githubusercontent.com/94106976/169789162-8ad57f39-6d58-44b9-82b3-5afe7f4ac219.png" />
+</div>
